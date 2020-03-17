@@ -90,4 +90,11 @@ def yearcnt(df):
     iht['Total'] = list(iht.sum(axis=1))
     return iht
 
-
+def light_or_dark(df):
+    lst = []
+    for i in range(len(df)):
+        if df.times[i] > df.time_stop[i]:
+            lst.append('light')
+        else:
+            lst.append('dark')
+    return lst
