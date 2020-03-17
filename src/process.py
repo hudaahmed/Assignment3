@@ -13,7 +13,7 @@ def make_df(years, components, outpath):
     df = pd.DataFrame()
     for i in years:
         if i < 2018:
-            path = '../data/raw/' + str(i) + '.csv'
+            path = 'data/raw/' + str(i) + '.csv'
             table = pd.read_csv(path)
         else:
             continue
@@ -66,7 +66,6 @@ def clean_contra(ser):
     return sez
 
 def clean_arrest(ser):
-    #Y' if 'arrest' in x or 'Arrest' in x or 'hold' in x
     sez = []
     for i in range(len(ser)):
         if 'Arrest' in ser[i] or 'arrest' in ser[i] or 'hold' in ser[i]:
@@ -75,10 +74,13 @@ def clean_arrest(ser):
             sez.append(0)
     return sez
     
-def clean_time(df):
+def clean_time_pre(df):
     df['time_stop'] = pd.to_datetime(df['time_stop'], format= '%H:%M', errors='coerce')
     return df
-    
+
+def clean_time_post(df):
+    df['time_stop'] = pd.to_datetime(df['time_stop'], format= '%H:%M:%S', errors='coerce')
+    return df   
 
 races = {'A':'Middle Eastern or South Asian',
 'B':'Black/African American',
@@ -132,10 +134,9 @@ def post18(df):
     diction = pd.Series(pdb.serv.values,index=pdb.beat).to_dict()
     df['service_area'] = df['service_area'].map(diction)
     df['service_area'] = pd.to_numeric(df['service_area'], errors = 'coerce')
-    df['arrested'] = [1 if 'arrest' in i or 'Arrest' in i or 'hold' in i else 0 for i in df.arrested]#clean_arrest(df['arrested'])
-    #[1 if 'arrest' in i or 'Arrest' in i or 'hold' in i else 0 for i in df.arrested]
+    df['arrested'] = [1 if 'arrest' in i or 'Arrest' in i or 'hold' in i else 0 for i in df.arrested]
     df['obtained_consent'] = clean_contra(df['obtained_consent'])
-    df['contraband_found'] = [0 if 'None' in i or 'none' in i else 1 for i in df.contraband_found]#clean_contra(df['contraband_found'])
+    df['contraband_found'] = [0 if 'None' in i or 'none' in i else 1 for i in df.contraband_found]
     return df[wanted_columns_pre]
 
 def compute_intertwilight(df):
@@ -148,6 +149,115 @@ def why_stop(df):
 
 def get_VOD_df(df):
     period = df[(df['time_stop'] >=  pd.to_datetime('17:09', format= '%H:%M')) & (df['time_stop'] <= pd.to_datetime('20:29', format= '%H:%M'))]
-    #period['time_stop'] = period['time_stop'].apply(lambda x: x.time()) 
     return period
+
+
+def has2018(fileslist):
+    if '2018.csv' in fileslist:
+        return list(fileslist).index('2018.csv')
+    else:
+        return False
+def createtables(lstfile):    
+    if has2018(lstfile) == False:
+        if len(lstfile) > 1:
+            pr2018 = pd.concat([pd.read_csv(f) for f in lstfile]).reset_index(drop = True)
+
+        else:
+            pr2018 = pd.read_csv(lstfile[0])
+        pr2018['year'] = pr2018['date_stop'].astype(str).str[:4]
+        pr2018['year'] = pr2018['year'].astype(int)
+        pr2018 = pr2018[wanted_columns_pre]
+    else:
+        namespre2018 = lstfile[:has2018(lstfile)]
+        if len(lstfile) > 1:
+            pr2018 = pd.concat([pd.read_csv(f) for f in namespre2018]).reset_index(drop = True)
+
+        else:
+            pr2018 = pd.read_csv(lstfile[0])
+        pr2018['year'] = pr2018['date_stop'].astype(str).str[:4]
+        pr2018['year'] = pr2018['year'].astype(int)
+        pr2018 = pr2018[wanted_columns_pre]
+
+        consent = pd.read_csv(lstfile[has2018(lstfile)+1])[['stop_id', 'consented']]
+        contra = pd.read_csv(lstfile[has2018(lstfile)+2])[['stop_id', 'contraband']]
+        seiz = pd.read_csv(lstfile[has2018(lstfile)+3])[['stop_id', 'type_of_property_seized']]
+        race = pd.read_csv(lstfile[has2018(lstfile)+4])[['stop_id', 'race']]
+        search = pd.read_csv(lstfile[has2018(lstfile)+5])[['stop_id', 'basis_for_search']]
+        whystop = pd.read_csv(lstfile[has2018(lstfile)+6])[['stop_id', 'reason_for_stop']]
+        stopresult = pd.read_csv(lstfile[has2018(lstfile)+7])[['stop_id', 'result']]
+
+        pt2018 = pd.read_csv(lstfile[has2018(lstfile)])
+        pt2018 = pt2018.merge(consent, on='stop_id')
+        pt2018 = pt2018.drop_duplicates(subset = 'stop_id')
+        pt2018 = pt2018.merge(contra, on='stop_id')
+        pt2018 = pt2018.drop_duplicates(subset = 'stop_id')
+        pt2018 = pt2018.merge(seiz, on='stop_id')
+        pt2018 = pt2018.drop_duplicates(subset = 'stop_id')
+        pt2018 = pt2018.merge(race, on='stop_id')
+        pt2018 = pt2018.drop_duplicates(subset = 'stop_id')
+        pt2018 = pt2018.merge(search, on='stop_id')
+        pt2018 = pt2018.drop_duplicates(subset = 'stop_id')
+        pt2018 = pt2018.merge(whystop, on='stop_id')
+        pt2018 = pt2018.drop_duplicates(subset = 'stop_id')
+        pt2018 = pt2018.merge(stopresult, on='stop_id')
+        pt2018 = pt2018.drop_duplicates(subset = 'stop_id')
+        pt2018['year'] = pt2018['date_stop'].astype(str).str[:4]
+        pt2018['year'] = pt2018['year'].astype(int)
+    return pr2018, pt2018
+
+
+def censusyr(df):   
+    racepops = df[['beat', 'div', 'serv', 'H7X001', 'H7X002', 'H7X003', 'H7X004', 'H7X005', 'H7X006', 'H7X007', 'H7X008']]
+    racepops['Other'] = racepops['H7X007']+ racepops['H7X008']
+    racepops = racepops[['beat', 'div', 'serv', 'H7X001', 'H7X002', 'H7X003', 'H7X004', 'H7X005', 'H7X006', 'Other']]
+    racepops = racepops.rename(columns = {'beat': 'beat', 'div':'div', 'serv':'serv', 'H7X001':'Total', 'H7X002': 'White', 'H7X003': 'Black/African American', 
+                        'H7X004': 'Native American', 'H7X005':'Asian', 'H7X006': 
+                        'Pacific Islander', 'Other': 'Other'})
+    return racepops
+
+def yearcnt(df):
+    iht = pd.pivot_table(df, index= ['service_area'], columns = ['subject_race'], aggfunc={'stop_id': 'count'})
+    iht = iht.dropna()
+    iht[ ('stop_id',                         'Other')] = iht[ ('stop_id',                         'Other')] + iht[ ('stop_id',                         'Hispanic/Latino/a')] + iht[('stop_id', 'Middle Eastern or South Asian')]
+    iht = iht.drop(columns = [('stop_id', 'Middle Eastern or South Asian'), ('stop_id',             'Hispanic/Latino/a')])
+    iht.columns = iht.columns.droplevel(0)
+    iht['Total'] = list(iht.sum(axis=1))
+    return iht
+
+def light_or_dark(df):
+    lst = []
+    for i in range(len(df)):
+        if df.times[i] > df.time_stop[i]:
+            lst.append('light')
+        else:
+            lst.append('dark')
+    return lst
+
+def darkvlight(df, yr):
+    vod_df2 = df[df.year==yr]
+    light = vod_df2[vod_df2.whatisit=='light']
+    light = pd.DataFrame(light.groupby('subject_race')['stop_id'].count() / len(light))
+    dark = vod_df2[vod_df2.whatisit=='dark']
+    dark = pd.DataFrame(dark.groupby('subject_race')['stop_id'].count() / len(dark))
+    conc = pd.concat([light, dark], axis=1)
+    return conc, light, dark
+
+def bivar(df, yr):
+    ret = get_VOD_df(df)
+    ret = ret[ret['year'] == yr]
+    ret = ret.sort_values(by = 'time_stop')
+    ret['time_stop'] = [str(x.time()) for x in ret.time_stop]
+    ret['time_stop'] = [int(x[0:2]) * 3600 + int(x[3:5]) * 60 + int(x[6:]) for x in ret.time_stop]
+    forgraph = pd.DataFrame(ret.groupby('time_stop')['stop_id'].count())
+    return forgraph
+
+def bivar2(df, yr):
+    fif = df[df['year'] == yr]
+    fif = fif.sort_values(by = 'time_stop').dropna()
+    fif['time_stop'] = [str(x.time()) for x in fif.time_stop]
+    fif['time_stop'] = [int(x[0:2]) * 3600 + int(x[3:5]) * 60 + int(x[6:]) for x in fif.time_stop]
+    yttt = pd.DataFrame(fif.groupby('time_stop')['stop_id'].count())
+    return yttt
+
+
     

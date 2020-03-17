@@ -280,6 +280,13 @@
     
 
     
+    \section{Fair-Policing Assignment \#3}\label{fair-policing-assignment-3}
+
+\begin{verbatim}
+Name: Huda Ahmed
+PID: A13521937
+\end{verbatim}
+
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
         \PY{k+kn}{import} \PY{n+nn}{os}
@@ -293,6 +300,7 @@
         \PY{k+kn}{from} \PY{n+nn}{geopandas} \PY{k}{import} \PY{n}{GeoSeries}
         \PY{k+kn}{from} \PY{n+nn}{shapely}\PY{n+nn}{.}\PY{n+nn}{geometry} \PY{k}{import} \PY{n}{Polygon}
         \PY{k+kn}{import} \PY{n+nn}{sys}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats}
         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
         \PY{k+kn}{import} \PY{n+nn}{warnings}
         \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -311,96 +319,81 @@
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{from} \PY{n+nn}{clean} \PY{k}{import} \PY{o}{*}
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{from} \PY{n+nn}{etl} \PY{k}{import} \PY{o}{*}
+         \PY{k+kn}{from} \PY{n+nn}{process} \PY{k}{import} \PY{o}{*}
 \end{Verbatim}
 
 
-    \subsection{Table of Contents}\label{table-of-contents}
+    Table of Contents{}
 
-    \begin{itemize}
-\item
-  Section \ref{heading}
-\item
-  Section \ref{heading-1}
-\item
-  Section \ref{sub-heading-1}
+{{1~~}Fair-Policing Assignment \#3}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Section \ref{sub-sub-heading-1}
-  \end{itemize}
-\item
-  Section \ref{heading-2}
-\item
-  Section \ref{sub-heading-2}
+{{1.1~~}Introduction}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Section \ref{sub-sub-heading-2}
-  \end{itemize}
-\item
-  Section \ref{heading-1}
-\item
-  Section \ref{sub-heading-1}
+{{1.2~~}Historical Context}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Section \ref{sub-sub-heading-1}
-  \end{itemize}
-\item
-  Section \ref{heading-2}
-\item
-  Section \ref{sub-heading-2}
+{{1.3~~}Data}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Section \ref{sub-sub-heading-2}\\
-  \end{itemize}
-\item
-  Section \ref{heading-1}
-\item
-  Section \ref{sub-heading-1}
+{{1.3.0.1~~}Introduction to Data}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Section \ref{sub-sub-heading-1}
-  \end{itemize}
-\item
-  Section \ref{heading-2}
-\item
-  Section \ref{sub-heading-2}
+{{1.3.0.2~~}Data Generation Process}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Section \ref{sub-sub-heading-2}
-  \end{itemize}
-\item
-  Section \ref{heading-1}
-\item
-  Section \ref{sub-heading-1}
+{{1.3.1~~}EDA}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Section \ref{sub-sub-heading-1}
-  \end{itemize}
-\item
-  Section \ref{heading-2}
-\item
-  Section \ref{sub-heading-2}
+{{1.3.2~~}Reliability of Data}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Section \ref{sub-sub-heading-2}
-  \end{itemize}
-\end{itemize}
+{{1.3.2.1~~}Precision}
+
+{{1.3.2.2~~}Missingness}
+
+{{1.3.2.3~~}Accuracy}
+
+{{1.3.3~~}Approach to Cleaning}
+
+{{1.4~~}Stop Rates}
+
+{{1.5~~}Post-Stop Outcomes}
+
+{{1.6~~}Veil of Darkness}
+
+{{1.6.1~~}Explanation}
+
+{{1.6.1.1~~}Shortcomings}
+
+{{1.7~~}Moving Beyond SDSU}
+
+{{1.8~~}Conclusion}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{cfg} \PY{o}{=} \PY{n}{json}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../config/data\PYZhy{}params.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{get\PYZus{}data}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{cfg}\PY{p}{)}
+         \PY{n}{df1} \PY{o}{=} \PY{n}{make\PYZus{}df}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{cfg}\PY{p}{)}
+         \PY{n}{owd} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+         \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/raw}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{extension} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{csv}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{all\PYZus{}filenames} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{extension}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{all\PYZus{}filenames} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{all\PYZus{}filenames}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{pre2018} \PY{o}{=} \PY{n}{pre18}\PY{p}{(}\PY{n}{createtables}\PY{p}{(}\PY{n}{all\PYZus{}filenames}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n}{pre2018} \PY{o}{=} \PY{n}{clean\PYZus{}time\PYZus{}pre}\PY{p}{(}\PY{n}{pre2018}\PY{p}{)}
+         \PY{n}{post2018} \PY{o}{=} \PY{n}{post18}\PY{p}{(}\PY{n}{createtables}\PY{p}{(}\PY{n}{all\PYZus{}filenames}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{post2018} \PY{o}{=} \PY{n}{clean\PYZus{}time\PYZus{}post}\PY{p}{(}\PY{n}{post2018}\PY{p}{)}
+         \PY{n}{allyears} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{pre2018}\PY{p}{,} \PY{n}{post2018}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{getdir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+         \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{n}{owd}\PY{p}{)}
+         
+         \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/out}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{os}\PY{o}{.}\PY{n}{mkdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/out}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{allyears}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/out/combined.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{pre2018}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/out/pre2018.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{post2018}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/out/post2018.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
 
     \subsection{Introduction}\label{introduction}
 
@@ -508,30 +501,96 @@ Year & Year of stop.\tabularnewline
 
     \paragraph{Data Generation Process}\label{data-generation-process}
 
+    Originally, the data was collected through the San Diego Police with the
+pre-2018 years consisting of one csv and the post-2018 consisting of
+many RIPA csv's that one had to merge to create a dataframe that
+consists of the above columns. From there, once the data was collected,
+aggregations to find the stop-rates and post-stop outcomes had to occur.
+In order to find the stop-rates, I first had to find the total
+population living in San Diego and more specifically the service areas
+in the city. To do this, one has to spatially join the census population
+dataset to the police stops dataset, which I did through ArcGIS because
+once one plots the census population dataset as centroids on top of the
+police beats split by service area, the software is able to join
+spatially based of the coordinates of the one service area to many
+centroids join. One thing to take note of was the when joining the two
+dataframes, I chose to count the centroids fully inside the service area
+boundaries as the centroids were small enough that only
+\textasciitilde{}3\% of the centroids intersected between multiple
+service areas.
+
     \subsubsection{EDA}\label{eda}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{age} \PY{o}{=} \PY{n}{allyears}\PY{p}{[}\PY{n}{allyears}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2014}\PY{p}{]}
-        \PY{n}{age} \PY{o}{=} \PY{n}{age}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
-        \PY{n}{age} \PY{o}{=} \PY{n}{age}\PY{p}{[}\PY{n}{age}\PY{o}{.}\PY{n}{subject\PYZus{}age} \PY{o}{\PYZgt{}} \PY{l+m+mi}{14}\PY{p}{]}
-        \PY{n}{age} \PY{o}{=} \PY{n}{age}\PY{p}{[}\PY{n}{age}\PY{o}{.}\PY{n}{subject\PYZus{}age} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{110}\PY{p}{]}
-        \PY{n}{gage} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{age}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{gage}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{gage}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age of Driver}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-        \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped Across the Driver Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{age} \PY{o}{=} \PY{n}{allyears}\PY{p}{[}\PY{n}{allyears}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2014}\PY{p}{]}
+         \PY{n}{age} \PY{o}{=} \PY{n}{age}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         \PY{n}{age} \PY{o}{=} \PY{n}{age}\PY{p}{[}\PY{n}{age}\PY{o}{.}\PY{n}{subject\PYZus{}age} \PY{o}{\PYZgt{}} \PY{l+m+mi}{14}\PY{p}{]}
+         \PY{n}{age} \PY{o}{=} \PY{n}{age}\PY{p}{[}\PY{n}{age}\PY{o}{.}\PY{n}{subject\PYZus{}age} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{110}\PY{p}{]}
+         \PY{n}{gage} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{age}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{gage}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{gage}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age of Driver}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped Across the Driver Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}5}]:} Text(0.5,1,'Amount of Drivers Stopped Across the Driver Age')
+{\color{outcolor}Out[{\color{outcolor}18}]:} Text(0.5,1,'Amount of Drivers Stopped Across the Driver Age')
 \end{Verbatim}
             
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
+    From the graph above, we can see that for the year 2014, an increase in
+the amount of drivers stopped occurs from age 15 onwards till the charts
+peak at around age 28. From the chart, we can infer that once drivers
+reached their late twenties/early thirties, they were stopped less quite
+possibly because of being more open to following the laws as drivers
+mature. Another pattern we can see is the spike in amount of drivers
+stopped every 5 or 10 years. This is because the post-2018 dataset
+contained assumed age values of drivers rather than their true ages.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{bivar2}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{bivar2}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped Per Second in 2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{bivar}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{bivar}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped In the Inter\PYZhy{}Twilight Period in 2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    For the chart above, I wanted to compare the stop rates throught the
+year 2015 in time of day seconds. From the chart on the top, we can see
+peaks during certain times of day, like \textgreater{}750 drivers being
+stopped near 8 am (37,000 seconds), in comparison to the peaks at around
+5 pm (58,000 second) and 10 pm (79,000 seconds). To look more closely at
+the trends, I decided to graph the stops in 2015 that occurred during
+the inter-twilight period. We can see a spike in the data every 1000
+seconds (or \textasciitilde{}30 minute) which shows that officers often
+most likely round the police stopping of a driver time to the nearest 30
+minute or 1 hour.
+
     \subsubsection{Reliability of Data}\label{reliability-of-data}
 
     \paragraph{Precision}\label{precision}
@@ -551,98 +610,99 @@ whereas pre2018 only had 'M' for Males or 'F' for Females or 'X' for
 Unknown for those they had no idea about.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{owd} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
-        \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/raw}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{owd} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}
+         \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/raw}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{fifteen} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{f}\PY{p}{)} \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n}{newnames}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
-        \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{fifteen}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{pree} \PY{o}{=} \PY{n}{createtables}\PY{p}{(}\PY{n}{all\PYZus{}filenames}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{fifteen} \PY{o}{=} \PY{n}{pree}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{fifteen}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}7}]:}    subject\_race
-        W        196665
-        H        141695
-        B         51754
-        O         35395
-        A         21695
-        F          6213
-        V          3348
-        C          2450
-        I          2280
-        X           713
-        K           649
-        J           541
-        P           514
-        Z           349
-        L           316
-        S           250
-        D           249
-        G           124
-        U            66
+{\color{outcolor}Out[{\color{outcolor}23}]:}    subject\_race
+         W        196665
+         H        141695
+         B         51754
+         O         35395
+         A         21695
+         F          6213
+         V          3348
+         C          2450
+         I          2280
+         X           713
+         K           649
+         J           541
+         P           514
+         Z           349
+         L           316
+         S           250
+         D           249
+         G           124
+         U            66
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{post2018}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{post2018}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}8}]:}                                subject\_race
-        White                                103731
-        Hispanic/Latino/a                     69465
-        Black/African American                46522
-        Asian                                 12189
-        Middle Eastern or South Asian          6796
-        Pacific Islander                       2075
-        Native American                         512
+{\color{outcolor}Out[{\color{outcolor}24}]:}                                subject\_race
+         White                                103731
+         Hispanic/Latino/a                     69465
+         Black/African American                46522
+         Asian                                 12189
+         Middle Eastern or South Asian          6796
+         Pacific Islander                       2075
+         Native American                         512
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{newtableee} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
-        \PY{n}{subValCnts} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{allyears}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-        \PY{n}{newtableee}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Driver Race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{subValCnts}\PY{o}{.}\PY{n}{index}
-        \PY{n}{newtableee}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number Of Stops}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{allyears}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-        \PY{n}{newtableee}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of Stops}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{allyears}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{allyears}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-        \PY{n}{newtableee}
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{newtableee} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{subValCnts} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{allyears}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{newtableee}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Driver Race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{subValCnts}\PY{o}{.}\PY{n}{index}
+         \PY{n}{newtableee}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number Of Stops}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{allyears}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{newtableee}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of Stops}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{allyears}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n}{allyears}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{newtableee}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}9}]:}                      Driver Race  Number Of Stops  Percentage of Stops
-        0                          White           300396             0.425585
-        1              Hispanic/Latino/a           211160             0.299160
-        2         Black/African American            98276             0.139232
-        3                          Other            35395             0.050146
-        4  Middle Eastern or South Asian            31120             0.044089
-        5                          Asian            25955             0.036772
-        6               Pacific Islander             3029             0.004291
-        7                Native American              512             0.000725
+{\color{outcolor}Out[{\color{outcolor}25}]:}                      Driver Race  Number Of Stops  Percentage of Stops
+         0                          White           300396             0.425585
+         1              Hispanic/Latino/a           211160             0.299160
+         2         Black/African American            98276             0.139232
+         3                          Other            35395             0.050146
+         4  Middle Eastern or South Asian            31120             0.044089
+         5                          Asian            25955             0.036772
+         6               Pacific Islander             3029             0.004291
+         7                Native American              512             0.000725
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{fifteengend} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{f}\PY{p}{)} \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n}{newnames} \PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{subject\PYZus{}sex}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{fifteengend} \PY{o}{=} \PY{n}{pree}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{subject\PYZus{}sex}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
          \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{fifteengend}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}10}]:}    subject\_sex
+{\color{outcolor}Out[{\color{outcolor}27}]:}    subject\_sex
          M       301139
          F       163924
          X           66
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{post2018}\PY{o}{.}\PY{n}{subject\PYZus{}sex}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{post2018}\PY{o}{.}\PY{n}{subject\PYZus{}sex}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}11}]:}    subject\_sex
+{\color{outcolor}Out[{\color{outcolor}28}]:}    subject\_sex
          1       178441
          2        62151
          3          385
@@ -678,34 +738,34 @@ and had contraband found by the officers only after they had provided
 consent or had been searched.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{prn} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{f}\PY{p}{)} \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n}{newnames}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of Nulls in Pre\PYZhy{}2018 Columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{prn} \PY{o}{=} \PY{n}{pree}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of Nulls in Pre\PYZhy{}2018 Columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
          \PY{n}{prn}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Columns}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
          \PY{n}{prn}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Percentage of Nulls}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}12}]:} Text(0,0.5,'Percentage of Nulls')
+{\color{outcolor}Out[{\color{outcolor}29}]:} Text(0,0.5,'Percentage of Nulls')
 \end{Verbatim}
             
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{nulls} \PY{o}{=} \PY{n}{pt2018}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of Nulls in Each Column}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{nulls} \PY{o}{=} \PY{n}{createtables}\PY{p}{(}\PY{n}{all\PYZus{}filenames}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of Nulls in Each Column}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
          \PY{n}{nulls}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Columns}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
          \PY{n}{nulls}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Percentage of Nulls}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}13}]:} Text(0,0.5,'Percentage of Nulls')
+{\color{outcolor}Out[{\color{outcolor}31}]:} Text(0,0.5,'Percentage of Nulls')
 \end{Verbatim}
             
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -735,12 +795,12 @@ more inefficient to clean because you'd have to loop through all of the
 unique inputs and map it to one form.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{pre2018}\PY{o}{.}\PY{n}{stop\PYZus{}cause}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{pre2018}\PY{o}{.}\PY{n}{stop\PYZus{}cause}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}14}]:}                                     stop\_cause
+{\color{outcolor}Out[{\color{outcolor}32}]:}                                     stop\_cause
          Moving Violation                        344856
          Equipment Violation                     114205
          Radio Call/Citizen Contact                2181
@@ -759,7 +819,7 @@ unique inputs and map it to one form.
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{forgraphs} \PY{o}{=} \PY{n}{allyears}
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{forgraphs} \PY{o}{=} \PY{n}{allyears}
          \PY{n}{forgraphs} \PY{o}{=} \PY{n}{forgraphs}\PY{p}{[}\PY{n}{forgraphs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{14}\PY{p}{]}
          \PY{n}{forgraphs} \PY{o}{=} \PY{n}{forgraphs}\PY{p}{[}\PY{n}{forgraphs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{120}\PY{p}{]}
          \PY{n}{a} \PY{o}{=} \PY{n}{forgraphs}\PY{o}{.}\PY{n}{subject\PYZus{}age}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
@@ -771,18 +831,22 @@ unique inputs and map it to one form.
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}15}]:} Text(0.5,1,'Age of Drivers')
+{\color{outcolor}Out[{\color{outcolor}33}]:} Text(0.5,1,'Age of Drivers')
 \end{Verbatim}
             
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \subsubsection{Approach to Cleaning}\label{approach-to-cleaning}
 
+    In order to star cleaning the data, I first looked at the count of each
+driver race and used that to see which races would make a larger and
+more significant effect on the dataset.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{forgraphs} \PY{o}{=} \PY{n}{allyears}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{forgraphs} \PY{o}{=} \PY{n}{allyears}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
          \PY{n}{r} \PY{o}{=} \PY{n}{forgraphs}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
          \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{r}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{r}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{p}{)}
          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -794,17 +858,37 @@ unique inputs and map it to one form.
 
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
+    I also looked at the missingness of each column in the dataset and used
+the percent of missing data to aid me in taking either the imputation of
+the column or dropping the nulls. Analyzing patterns of missing data can
+aid in finding the explanation of how and why the missingness occurred
+and provide a little insight into what they mean for the dataset's
+reliability and its effect on the overall analysis. In this case, for
+many, the nulls actually meant that the driver was not stopped,
+searched, arrested and so on so I mapped the values to 0. I found that
+rather than having type 'object' columns, it was easier to map binary
+values like 0 and 1 so that the charting of the data would be easier.
+
     \subsection{Stop Rates}\label{stop-rates}
 
-    In order to get the stop rates,
+    In order to get the stop rates, census population data first had to get
+downloaded and joined to the police stops data because the true
+denominator is actually the amount of residents in San Diego in
+comparison to the amount of drivers stopped. To join these two datasets,
+I used ArcGIS to first plot the police census dataset by beat and then
+uploaded the census data, found the centorids of the population and used
+that to create boundaries. Once the centroids were done, I spatially
+joined mulitple centroids that were completely within service areas to
+one service area and found that those centroids who were intersecting
+srvice areas actually on consisted of \textless{}3\% of the centroids.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{n}{owd}\PY{p}{)}
-         \PY{n}{j} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/uploaded/joined.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{os}\PY{o}{.}\PY{n}{chdir}\PY{p}{(}\PY{n}{owd}\PY{p}{)}
+         \PY{n}{j} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../uploaded/joined.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
          \PY{n}{jdf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{j}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{H7X001}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
          \PY{n}{totdf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{allyears}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{service\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}
          \PY{n}{combo} \PY{o}{=} \PY{n}{jdf}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{totdf}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -815,7 +899,7 @@ unique inputs and map it to one form.
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}17}]:}        Population  Number of Stops  \% of Stops/Population
+{\color{outcolor}Out[{\color{outcolor}35}]:}        Population  Number of Stops  \% of Stops/Population
          0.0           0.0              NaN                    NaN
          110.0    127318.0          42407.0               0.333079
          120.0     89063.0          63901.0               0.717481
@@ -841,8 +925,16 @@ unique inputs and map it to one form.
          930.0     69028.0          36046.0               0.522194
 \end{Verbatim}
             
+    In the map below, we can see that there is one significant servicxe area
+that had higher stop rates. Looking more closely to the San Diego Police
+Departmetn divisions map, I concluded that there existed little San
+Diego Residents in service area 530 due to Balboa Park taking up
+majority of that area. The map below that shows the mean amount of San
+Diego residents per service area (also known as our stop rates
+denominator).
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{beat\PYZus{}url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://seshat.datasd.org/sde/pd/pd\PYZus{}beats\PYZus{}datasd.geojson}\PY{l+s+s1}{\PYZsq{}}
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{beat\PYZus{}url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://seshat.datasd.org/sde/pd/pd\PYZus{}beats\PYZus{}datasd.geojson}\PY{l+s+s1}{\PYZsq{}}
          \PY{n}{pol} \PY{o}{=} \PY{n}{gpd}\PY{o}{.}\PY{n}{read\PYZus{}file}\PY{p}{(}\PY{n}{beat\PYZus{}url}\PY{p}{)}
          \PY{n}{cp} \PY{o}{=} \PY{n}{pol}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
          \PY{n}{cp} \PY{o}{=}\PY{n}{cp}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{combo}\PY{p}{,} \PY{n}{on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
@@ -853,38 +945,45 @@ unique inputs and map it to one form.
 
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{totpopcens} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{censusyr}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{div}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{totpopcens} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{censusyr}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{serv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{div}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{data15} \PY{o}{=} \PY{n}{allyears}\PY{p}{[}\PY{n}{allyears}\PY{o}{.}\PY{n}{year} \PY{o}{==} \PY{l+m+mi}{2015}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{data15} \PY{o}{=} \PY{n}{allyears}\PY{p}{[}\PY{n}{allyears}\PY{o}{.}\PY{n}{year} \PY{o}{==} \PY{l+m+mi}{2015}\PY{p}{]}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{iht} \PY{o}{=} \PY{n}{yearcnt}\PY{p}{(}\PY{n}{data15}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{iht} \PY{o}{=} \PY{n}{yearcnt}\PY{p}{(}\PY{n}{data15}\PY{p}{)}
 \end{Verbatim}
 
 
+    The table below shows that white drivers made up about 6\% of stop rates
+in San Diego during 2015 in relation to the 20\% of black drivers
+stopped. This is surprising becuase if you look at the overall
+population of San Diego there are around 769967 white driver residents
+as comapred to the significantly lower amount of black drivers (about
+87949).
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{stopratesbyarea} \PY{o}{=} \PY{n}{iht}\PY{o}{/}\PY{n}{totpopcens}
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{stopratesbyarea} \PY{o}{=} \PY{n}{iht}\PY{o}{/}\PY{n}{totpopcens}
          \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{stopratesbyarea}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}22}]:}                                0
+{\color{outcolor}Out[{\color{outcolor}40}]:}                                0
          Asian                   0.022432
          Black/African American  0.202371
          Other                   0.279779
@@ -894,12 +993,12 @@ unique inputs and map it to one form.
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{totpopcens}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{totpopcens}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}23}]:}                               0
+{\color{outcolor}Out[{\color{outcolor}41}]:}                               0
          Asian                    207944
          Black/African American    87949
          Native American            7696
@@ -912,7 +1011,7 @@ unique inputs and map it to one form.
     \subsection{Post-Stop Outcomes}\label{post-stop-outcomes}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{rc} \PY{o}{=} \PY{n}{allyears}\PY{p}{[}\PY{n}{allyears}\PY{o}{.}\PY{n}{subject\PYZus{}race} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Native American}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{rc} \PY{o}{=} \PY{n}{allyears}\PY{p}{[}\PY{n}{allyears}\PY{o}{.}\PY{n}{subject\PYZus{}race} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Native American}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
          \PY{n}{rc} \PY{o}{=} \PY{n}{allyears}\PY{p}{[}\PY{n}{allyears}\PY{o}{.}\PY{n}{year} \PY{o}{==} \PY{l+m+mi}{2015}\PY{p}{]}
          \PY{n}{rc} \PY{o}{=} \PY{n}{rc}\PY{p}{[}\PY{n}{rc}\PY{o}{.}\PY{n}{subject\PYZus{}race} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Middle Eastern or South Asian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
          \PY{n}{rc} \PY{o}{=} \PY{n}{rc}\PY{p}{[}\PY{n}{rc}\PY{o}{.}\PY{n}{subject\PYZus{}race} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
@@ -920,15 +1019,20 @@ unique inputs and map it to one form.
 \end{Verbatim}
 
 
+    Not surprisingly, when taking into account the post-stop outcomes by
+each race, we saw a siginificant increase in the amount of searches for
+black drivers in comparison to any other race where as the white drivers
+had the lowest serach rates.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{poststop} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{rc}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{poststop} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{rc}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
          \PY{o}{.}\PY{o}{.}\PY{o}{.}                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrested}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{property\PYZus{}seized}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{searched}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{contraband\PYZus{}found}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
          \PY{n}{poststop}\PY{o}{.}\PY{n}{T}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}25}]:} subject\_race            Asian  Black/African American  Hispanic/Latino/a  \textbackslash{}
+{\color{outcolor}Out[{\color{outcolor}43}]:} subject\_race            Asian  Black/African American  Hispanic/Latino/a  \textbackslash{}
          arrested             0.011022                0.017424           0.013064   
          contraband\_found     0.002204                0.007018           0.003977   
          property\_seized      0.002756                0.005969           0.006735   
@@ -944,7 +1048,7 @@ unique inputs and map it to one form.
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{raceonly}\PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{rc}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{raceonly}\PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{rc}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
          \PY{o}{.}\PY{o}{.}\PY{o}{.}                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrested}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{property\PYZus{}seized}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{searched}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{contraband\PYZus{}found}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{\PYZcb{}}\PY{p}{)}
          \PY{n}{ax} \PY{o}{=} \PY{n}{raceonly}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of Drivers Who Were Searched and Had Property Seized by Race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{},color=[\PYZsq{}orange\PYZsq{}, \PYZsq{}red\PYZsq{}, \PYZsq{}green\PYZsq{}, \PYZsq{}blue\PYZsq{}])}
          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Driver Race}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
@@ -953,23 +1057,31 @@ unique inputs and map it to one form.
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}26}]:} Text(0,0.5,'Mean Rates')
+{\color{outcolor}Out[{\color{outcolor}44}]:} Text(0,0.5,'Mean Rates')
 \end{Verbatim}
             
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
+    In order to look at post-stop outcomes more wholistically, I looked to
+see the rates of total searches, arrests, contraband found and property
+seized and found that there was in increas in all of these outcomes
+between 2017 and 2018. This is also when the new method of police
+reporting came into play with the RIPA datasets so it was not surprising
+as it was harder for police officers to not fill out these post 2017
+reports.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{rip} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{allyears}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{rip} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{allyears}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
          \PY{o}{.}\PY{o}{.}\PY{o}{.}                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrested}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{property\PYZus{}seized}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{searched}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{contraband\PYZus{}found}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{\PYZcb{}}\PY{p}{)}
          \PY{n}{rip}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}27}]:}       arrested  contraband\_found  property\_seized  searched
+{\color{outcolor}Out[{\color{outcolor}76}]:}       arrested  contraband\_found  property\_seized  searched
          year                                                       
          2014  0.014123          0.004245         0.005306  0.049541
          2015  0.011662          0.003422         0.004245  0.037922
@@ -980,18 +1092,18 @@ unique inputs and map it to one form.
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{tr} \PY{o}{=} \PY{n}{rip}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percent of Post\PYZhy{}Stop Outcomes from 2014\PYZhy{}2019}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{tr} \PY{o}{=} \PY{n}{rip}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percent of Post\PYZhy{}Stop Outcomes from 2014\PYZhy{}2019}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
          \PY{n}{tr}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Year}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
          \PY{n}{tr}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Percent of Post\PYZhy{}Stop Outcomes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}28}]:} Text(0,0.5,'Percent of Post-Stop Outcomes')
+{\color{outcolor}Out[{\color{outcolor}46}]:} Text(0,0.5,'Percent of Post-Stop Outcomes')
 \end{Verbatim}
             
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -1010,231 +1122,30 @@ approach is just to compare whether daytime stops or nighttime stops
 have higher proportion of black drivers". To adjust for the differences
 in the time of the sun setting throughout the year, we use the
 inter-twilight period which aims to focus on stops that occur within
-5:09 PM and 8:29 PM.
+5:09 PM and 8:29 PM. Once this time period was aggregated, I webscraped
+sunset times for each day of each month that occured during this time
+period and mapped that service areas to the sunset times. From this, I
+was able to place drivers during the inter-twilight period as either
+being stopped in the light versus the dark (our train and test sets).
+From there a hypothesis of whether racial disparity truly exists was
+conducted and deduced that there was no significant difference in stop
+rates between Asian, Black and White drivers who were stopped in the
+light vs dark period of the inter-twilight period.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}105}]:} \PY{n}{vod\PYZus{}df} \PY{o}{=} \PY{n}{get\PYZus{}VOD\PYZus{}df}\PY{p}{(}\PY{n}{allyears}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{vodgraph} \PY{o}{=} \PY{n}{vod\PYZus{}df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
-          \PY{n}{vcn} \PY{o}{=} \PY{n}{vodgraph}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{vcn}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{vcn}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Subjects Stopped by Race During the Inter\PYZhy{}Twilight Period}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vertical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{aftervod} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{vod\PYZus{}df}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{service\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
-          \PY{o}{.}\PY{o}{.}\PY{o}{.}                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{property\PYZus{}seized}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{searched}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
-          
-          \PY{n}{haha} \PY{o}{=} \PY{n}{aftervod}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
-          \PY{n}{haha}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}107}]:}                               property\_seized        searched        stop\_id  \textbackslash{}
-                                                   mean   sum      mean    sum   count   
-          subject\_race                                                                   
-          Asian                                0.090909   4.0  0.350000   15.0     269   
-          Black/African American               0.032258   7.0  0.226730   98.0     604   
-          Hispanic/Latino/a                    0.076923  16.0  1.000000  116.0    3097   
-          Middle Eastern or South Asian        0.076923   1.0  0.133333   10.0     279   
-          Other                                0.076923   2.0  0.153846    6.0     369   
-          Pacific Islander                     0.000000   0.0  1.000000    3.0      11   
-          White                                0.024510  11.0  0.203704   66.0    1346   
-          
-                                        subject\_age  
-                                               mean  
-          subject\_race                               
-          Asian                            47.00000  
-          Black/African American           41.26506  
-          Hispanic/Latino/a                49.00000  
-          Middle Eastern or South Asian    60.00000  
-          Other                            41.00000  
-          Pacific Islander                 57.00000  
-          White                            48.00000  
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{getinter} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/forVoD.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{getinter} \PY{o}{=} \PY{n}{getinter}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age of Moon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rise}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Culm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-          \PY{n}{getinter} \PY{o}{=} \PY{n}{getinter}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{12}\PY{p}{]}
-          \PY{n}{getinter} \PY{o}{=} \PY{n}{getinter}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
-          \PY{n}{getinter}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Set}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{getinter}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Set}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coerce}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{dicvd} \PY{o}{=} \PY{n}{getinter}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Set}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}dict}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{vod\PYZus{}df} \PY{o}{=} \PY{n}{get\PYZus{}VOD\PYZus{}df}\PY{p}{(}\PY{n}{allyears}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}112}]:} \PY{k}{def} \PY{n+nf}{light\PYZus{}or\PYZus{}dark}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
-              \PY{n}{lst} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)}\PY{p}{:}
-                  \PY{k}{if} \PY{n}{df}\PY{o}{.}\PY{n}{times}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{df}\PY{o}{.}\PY{n}{time\PYZus{}stop}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
-                      \PY{n}{lst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{light}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-                  \PY{k}{else}\PY{p}{:}
-                      \PY{n}{lst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dark}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-              \PY{k}{return} \PY{n}{lst}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{vod\PYZus{}df1} \PY{o}{=} \PY{n}{vod\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
-          \PY{n}{getdays} \PY{o}{=} \PY{p}{[}\PY{p}{]}
-          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{o}{.}\PY{n}{date\PYZus{}stop}\PY{p}{)}\PY{p}{)}\PY{p}{:}
-              \PY{n}{getdays}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{o}{.}\PY{n}{date\PYZus{}stop}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}\PY{p}{)} 
-          \PY{n}{vod\PYZus{}df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{getdays}
-          \PY{n}{vod\PYZus{}df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{times}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{vod\PYZus{}df1}\PY{o}{.}\PY{n}{Month}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{dicvd}\PY{p}{)}
-          \PY{n}{vod\PYZus{}df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whatisit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{light\PYZus{}or\PYZus{}dark}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{)}
-          \PY{n}{vod\PYZus{}df1}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}113}]:}        stop\_id                    stop\_cause   date\_stop           time\_stop  \textbackslash{}
-          0      1045004              Moving Violation  2014-01-01 1900-01-01 17:15:00   
-          1      1045005              Moving Violation  2014-01-01 1900-01-01 17:15:00   
-          2      1044999              Moving Violation  2014-01-01 1900-01-01 17:15:00   
-          3      1045001           Equipment Violation  2014-01-01 1900-01-01 17:29:00   
-          4      1045003              Moving Violation  2014-01-01 1900-01-01 17:50:00   
-          {\ldots}        {\ldots}                           {\ldots}         {\ldots}                 {\ldots}   
-          47487  1444713              Moving Violation  2016-12-31 1900-01-01 19:30:00   
-          47488  1444732  Personal Knowledge/Informant  2016-12-31 1900-01-01 19:30:00   
-          47489  1444733              Moving Violation  2016-12-31 1900-01-01 19:30:00   
-          47490  1444736           Equipment Violation  2016-12-31 1900-01-01 19:45:00   
-          47491  1444750              Moving Violation  2016-12-31 1900-01-01 20:10:00   
-          
-                           subject\_race  subject\_sex  subject\_age  service\_area  \textbackslash{}
-          0           Hispanic/Latino/a          1.0         50.0         720.0   
-          1           Hispanic/Latino/a          1.0         25.0         720.0   
-          2                       White          1.0         18.0         240.0   
-          3                       White          1.0         49.0         230.0   
-          4      Black/African American          1.0         50.0         320.0   
-          {\ldots}                       {\ldots}          {\ldots}          {\ldots}           {\ldots}   
-          47487  Black/African American          2.0         25.0         610.0   
-          47488                   White          1.0         18.0         320.0   
-          47489       Hispanic/Latino/a          1.0         42.0           NaN   
-          47490  Black/African American          1.0         17.0         820.0   
-          47491                   Other          1.0         29.0         110.0   
-          
-                 sd\_resident  property\_seized  searched  arrested  obtained\_consent  \textbackslash{}
-          0                0                0         0         0                 0   
-          1                0                0         0         0                 0   
-          2                1                0         0         0                 0   
-          3                1                0         0         0                 0   
-          4                1                0         0         0                 0   
-          {\ldots}            {\ldots}              {\ldots}       {\ldots}       {\ldots}               {\ldots}   
-          47487            0                0         0         0                 0   
-          47488            1                0         0         0                 0   
-          47489            0                0         0         0                 0   
-          47490            1                0         0         0                 0   
-          47491            0                0         0         0                 0   
-          
-                 contraband\_found  year  Month               times whatisit  
-          0                     0  2014      1 1900-01-01 18:18:00    light  
-          1                     0  2014      1 1900-01-01 18:18:00    light  
-          2                     0  2014      1 1900-01-01 18:18:00    light  
-          3                     0  2014      1 1900-01-01 18:18:00    light  
-          4                     0  2014      1 1900-01-01 18:18:00    light  
-          {\ldots}                 {\ldots}   {\ldots}    {\ldots}                 {\ldots}      {\ldots}  
-          47487                 0  2016     12 1900-01-01 18:10:00     dark  
-          47488                 0  2016     12 1900-01-01 18:10:00     dark  
-          47489                 0  2016     12 1900-01-01 18:10:00     dark  
-          47490                 0  2016     12 1900-01-01 18:10:00     dark  
-          47491                 0  2016     12 1900-01-01 18:10:00     dark  
-          
-          [47492 rows x 18 columns]
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}136}]:} \PY{n}{light} \PY{o}{=} \PY{n}{vod\PYZus{}df1}\PY{p}{[}\PY{n}{vod\PYZus{}df1}\PY{o}{.}\PY{n}{whatisit}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{light}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-          \PY{n}{light} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{light}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{light}\PY{p}{)}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}146}]:} \PY{n}{dark} \PY{o}{=} \PY{n}{vod\PYZus{}df1}\PY{p}{[}\PY{n}{vod\PYZus{}df1}\PY{o}{.}\PY{n}{whatisit}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dark}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
-          \PY{n}{dark} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{dark}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dark}\PY{p}{)}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{vod\PYZus{}df2} \PY{o}{=} \PY{n}{vod\PYZus{}df1}\PY{p}{[}\PY{n}{vod\PYZus{}df1}\PY{o}{.}\PY{n}{year}\PY{o}{==}\PY{l+m+mi}{2015}\PY{p}{]}
-          \PY{n}{racevod}\PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{vod\PYZus{}df2}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whatisit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{\PYZcb{}}\PY{p}{)}
-          \PY{n}{ax1} \PY{o}{=} \PY{n}{racevod}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of Drivers Who Were Searched and Had Property Seized by Race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{},color=[\PYZsq{}orange\PYZsq{}, \PYZsq{}red\PYZsq{}, \PYZsq{}green\PYZsq{}, \PYZsq{}blue\PYZsq{}])}
-          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Driver Race}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Rates}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-          \PY{n}{racevod}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}144}]:}                                     stop\_id              
-          whatisit                               dark         light
-          subject\_race                                             
-          Asian                          1.245223e+06  1.247139e+06
-          Black/African American         1.254312e+06  1.252908e+06
-          Hispanic/Latino/a              1.255367e+06  1.250055e+06
-          Middle Eastern or South Asian  1.249871e+06  1.250916e+06
-          Other                          1.250439e+06  1.252616e+06
-          Pacific Islander               1.270307e+06  1.256377e+06
-          White                          1.251112e+06  1.250425e+06
-\end{Verbatim}
-            
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_1.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \paragraph{Shortcomings}\label{shortcomings}
-
-    \subsection{Main Results}\label{main-results}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{ret} \PY{o}{=} \PY{n}{get\PYZus{}VOD\PYZus{}df}\PY{p}{(}\PY{n}{allyears}\PY{p}{)}
-          \PY{n}{ret} \PY{o}{=} \PY{n}{ret}\PY{p}{[}\PY{n}{ret}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2014}\PY{p}{]}
-          \PY{n}{ret} \PY{o}{=} \PY{n}{ret}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}stop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{ret}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}stop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{ret}\PY{o}{.}\PY{n}{time\PYZus{}stop}\PY{p}{]}
-          \PY{n}{ret}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}stop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{3600} \PY{o}{+} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{60} \PY{o}{+} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{ret}\PY{o}{.}\PY{n}{time\PYZus{}stop}\PY{p}{]}
-          \PY{n}{forgraph} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ret}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}stop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{fif} \PY{o}{=} \PY{n}{allyears}\PY{p}{[}\PY{n}{allyears}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{2014}\PY{p}{]}
-          \PY{n}{fif} \PY{o}{=} \PY{n}{fif}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}stop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
-          \PY{n}{fif}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}stop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{fif}\PY{o}{.}\PY{n}{time\PYZus{}stop}\PY{p}{]}
-          \PY{n}{fif}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}stop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{3600} \PY{o}{+} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{l+m+mi}{60} \PY{o}{+} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{:}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{fif}\PY{o}{.}\PY{n}{time\PYZus{}stop}\PY{p}{]}
-          \PY{n}{yttt} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{fif}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time\PYZus{}stop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{yttt}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{yttt}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped Per Second in 2014}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{forgraph}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{forgraph}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped In the Inter\PYZhy{}Twilight Period in 2014}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
-          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{vodgraph} \PY{o}{=} \PY{n}{vod\PYZus{}df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         \PY{n}{vcn} \PY{o}{=} \PY{n}{vodgraph}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{vcn}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{vcn}\PY{o}{.}\PY{n}{subject\PYZus{}race}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Subjects Stopped by Race During the Inter\PYZhy{}Twilight Period}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vertical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -1243,109 +1154,484 @@ inter-twilight period which aims to focus on stops that occur within
     \end{center}
     { \hspace*{\fill} \\}
     
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{aftervod} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{vod\PYZus{}df}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{service\PYZus{}area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
+         \PY{o}{.}\PY{o}{.}\PY{o}{.}                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{property\PYZus{}seized}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{searched}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{haha} \PY{o}{=} \PY{n}{aftervod}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{level}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{haha}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:}                               property\_seized        searched        stop\_id  \textbackslash{}
+                                                  mean   sum      mean    sum   count   
+         subject\_race                                                                   
+         Asian                                0.083333   7.0  1.000000   55.0     372   
+         Black/African American               1.000000  33.0  1.000000  351.0    1576   
+         Hispanic/Latino/a                    0.333333  39.0  1.000000  384.0    4260   
+         Middle Eastern or South Asian        0.062500   2.0  0.500000   17.0     313   
+         Other                                0.076923   2.0  0.153846    6.0     369   
+         Pacific Islander                     0.166667   3.0  1.000000   13.0      38   
+         White                                1.000000  51.0  1.000000  386.0    3184   
+         Native American                      0.666667   2.0  1.000000    3.0      13   
+         
+                                       subject\_age  
+                                              mean  
+         subject\_race                               
+         Asian                           41.500000  
+         Black/African American          57.500000  
+         Hispanic/Latino/a               60.000000  
+         Middle Eastern or South Asian   41.971831  
+         Other                           41.000000  
+         Pacific Islander                47.500000  
+         White                           70.000000  
+         Native American                 65.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{getinter} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../uploaded/forVoD.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{getinter} \PY{o}{=} \PY{n}{getinter}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age of Moon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rise}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Culm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{getinter} \PY{o}{=} \PY{n}{getinter}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{12}\PY{p}{]}
+         \PY{n}{getinter} \PY{o}{=} \PY{n}{getinter}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{getinter}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Set}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{getinter}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Set}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coerce}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{dicvd} \PY{o}{=} \PY{n}{getinter}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Set}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{to\PYZus{}dict}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{vod\PYZus{}df1} \PY{o}{=} \PY{n}{vod\PYZus{}df}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{getdays} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{o}{.}\PY{n}{date\PYZus{}stop}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{getdays}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{o}{.}\PY{n}{date\PYZus{}stop}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}\PY{p}{)} 
+         \PY{n}{vod\PYZus{}df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{getdays}
+         \PY{n}{vod\PYZus{}df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{times}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{vod\PYZus{}df1}\PY{o}{.}\PY{n}{Month}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{dicvd}\PY{p}{)}
+         \PY{n}{vod\PYZus{}df1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whatisit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{light\PYZus{}or\PYZus{}dark}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{ax1} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of Inter\PYZhy{}Twilight Drivers Who Drove when Dark vs Light Outside in 2015}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Rates}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Race}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} Text(0.5,0,'Race')
+\end{Verbatim}
+            
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_69_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_73_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{ageless40} \PY{o}{=} \PY{n}{vod\PYZus{}df}\PY{p}{[}\PY{n}{vod\PYZus{}df}\PY{o}{.}\PY{n}{subject\PYZus{}age} \PY{o}{\PYZlt{}} \PY{l+m+mi}{40}\PY{p}{]}
-         \PY{n}{ageless40}
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{first} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{second} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2015}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{ks\PYZus{}2samp}\PY{p}{(}\PY{n}{second}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{first}\PY{o}{.}\PY{n}{values}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}86}]:}        stop\_id                    stop\_cause   date\_stop           time\_stop  \textbackslash{}
-         1      1045005              Moving Violation  2014-01-01 1900-01-01 17:15:00   
-         2      1044999              Moving Violation  2014-01-01 1900-01-01 17:15:00   
-         5      1045000              Moving Violation  2014-01-01 1900-01-01 17:50:00   
-         9      1045008           Equipment Violation  2014-01-01 1900-01-01 18:40:00   
-         10     1045010              Moving Violation  2014-01-01 1900-01-01 19:28:00   
-         {\ldots}        {\ldots}                           {\ldots}         {\ldots}                 {\ldots}   
-         47486  1444712              Moving Violation  2016-12-31 1900-01-01 18:50:00   
-         47487  1444713              Moving Violation  2016-12-31 1900-01-01 19:30:00   
-         47488  1444732  Personal Knowledge/Informant  2016-12-31 1900-01-01 19:30:00   
-         47490  1444736           Equipment Violation  2016-12-31 1900-01-01 19:45:00   
-         47491  1444750              Moving Violation  2016-12-31 1900-01-01 20:10:00   
+{\color{outcolor}Out[{\color{outcolor}53}]:} Ks\_2sampResult(statistic=0.1428571428571429, pvalue=0.9999951796657175)
+\end{Verbatim}
+            
+    \paragraph{Shortcomings}\label{shortcomings}
+
+    The Veil of Darkness had many shortcomings with artificial light being
+the most significant. From the pvalue of 0.9, we can see that the KS
+sample hypothesis had no significance on the 'Light' and 'Dark' dubbed
+times of day. From the bar chart, we can also see that there were
+similar averages of stop rates done during the inter-twilight period in
+times before and times after the sunset. This data and these charts
+showed that no statistically significant difference existed in the 2015
+stop patterns of black and white drivers.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{listserv} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{j}\PY{o}{.}\PY{n}{serv}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{lst1} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{listserv}\PY{p}{:}
+             \PY{n}{lst1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{servdict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{listserv}\PY{p}{,} \PY{n}{lst1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{vod\PYZus{}df\PYZus{}reg} \PY{o}{=} \PY{n}{vod\PYZus{}df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{vod\PYZus{}df\PYZus{}reg} \PY{o}{=} \PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{[}\PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{o}{.}\PY{n}{subject\PYZus{}race} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Native American}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{vod\PYZus{}df\PYZus{}reg} \PY{o}{=} \PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{[}\PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{o}{.}\PY{n}{year} \PY{o}{==} \PY{l+m+mi}{2015}\PY{p}{]}
+         \PY{n}{vod\PYZus{}df\PYZus{}reg} \PY{o}{=} \PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{[}\PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{o}{.}\PY{n}{subject\PYZus{}race} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Middle Eastern or South Asian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{vod\PYZus{}df\PYZus{}reg} \PY{o}{=} \PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{[}\PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{o}{.}\PY{n}{subject\PYZus{}race} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pacific Islander}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{div}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{o}{.}\PY{n}{service\PYZus{}area}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{servdict}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{reg} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Northern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{2}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Northeastern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{3}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eastern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{4}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Southeastern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{5}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Central}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{6}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Western}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{7}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Southern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{8}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mid City}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{9}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Northwestern}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{\PYZcb{}}
+         \PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{div}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{reg}\PY{p}{)}
+         \PY{n}{i8} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Above}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{2}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Above}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{3}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Above}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{4}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Below}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{5}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Below}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{6}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Above}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{7}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Below}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{8}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Below}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+             \PY{l+m+mi}{9}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Above}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{\PYZcb{}}
+         \PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{i8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{div}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{i8}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{rip} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{i8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{ax2} \PY{o}{=} \PY{n}{rip}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Racial Composition of SDPD Patrol Division Residents In Relation to Interstate 8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Count}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Race}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} Text(0.5,0,'Race')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_81_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The table below displays the racial and ethnic breakdown of the San
+Diego Police Department's nine police divisions. We can see that the
+highest concentrations of Black residents are found in the Southeastern
+and Mid-City divisions, whereas the White and Asian/PI populations are
+consistently at their lowest. Similarly, Hispanic residents tend to live
+in the Southern, Southeastern, and Mid-City divisions.
+Socioeconomically, poverty is also concentrated in these neighborhoods.
+From the data, we can actually see thta census tracts in these divisions
+are home to many of the San Diego's poorest residents. Similarly,
+neighborhoods located above Interstate 8, including those in the
+Northern, Northeastern, Northwestern, Eastern, and Western divisions,
+where income levels tend to be higher, are also home to greater
+percentages of White and API residents.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{vod\PYZus{}df\PYZus{}reg}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:}                            count                                             \textbackslash{}
+         region                   Central   Eastern  Mid City Northeastern  Northern   
+         subject\_race                                                                  
+         Asian                   0.001904  0.004612  0.003075     0.017205  0.002196   
+         Black/African American  0.013983  0.010835  0.029358     0.010396  0.008785   
+         Hispanic/Latino/a       0.038656  0.019621  0.041218     0.018010  0.020280   
+         Other                   0.015448  0.010323  0.003514     0.021524  0.010982   
+         White                   0.050955  0.055861  0.024746     0.069624  0.082656   
          
-                                 subject\_race  subject\_sex  subject\_age  service\_area  \textbackslash{}
-         1                  Hispanic/Latino/a          1.0         25.0         720.0   
-         2                              White          1.0         18.0         240.0   
-         5                              White          2.0         21.0         320.0   
-         9                              White          1.0         17.0         320.0   
-         10     Middle Eastern or South Asian          2.0         23.0         110.0   
-         {\ldots}                              {\ldots}          {\ldots}          {\ldots}           {\ldots}   
-         47486              Hispanic/Latino/a          2.0         32.0         710.0   
-         47487         Black/African American          2.0         25.0         610.0   
-         47488                          White          1.0         18.0         320.0   
-         47490         Black/African American          1.0         17.0         820.0   
-         47491                          Other          1.0         29.0         110.0   
-         
-                sd\_resident  property\_seized  searched  arrested  obtained\_consent  \textbackslash{}
-         1                0                0         0         0                 0   
-         2                1                0         0         0                 0   
-         5                1                0         0         0                 0   
-         9                1                0         0         0                 0   
-         10               1                0         0         0                 0   
-         {\ldots}            {\ldots}              {\ldots}       {\ldots}       {\ldots}               {\ldots}   
-         47486            0                0         0         0                 0   
-         47487            0                0         0         0                 0   
-         47488            1                0         0         0                 0   
-         47490            1                0         0         0                 0   
-         47491            0                0         0         0                 0   
-         
-                contraband\_found  year  Month  
-         1                     0  2014      1  
-         2                     0  2014      1  
-         5                     0  2014      1  
-         9                     0  2014      1  
-         10                    0  2014      1  
-         {\ldots}                 {\ldots}   {\ldots}    {\ldots}  
-         47486                 0  2016     31  
-         47487                 0  2016     31  
-         47488                 0  2016     31  
-         47490                 0  2016     31  
-         47491                 0  2016     31  
-         
-         [29777 rows x 16 columns]
+                                                                               
+         region                 Northwestern Southeastern  Southern   Western  
+         subject\_race                                                          
+         Asian                      0.003807     0.001318  0.001684  0.001537  
+         Black/African American     0.002562     0.027894  0.005271  0.008493  
+         Hispanic/Latino/a          0.008127     0.037411  0.143715  0.019401  
+         Other                      0.006077     0.002489  0.001684  0.005418  
+         White                      0.030603     0.005637  0.019255  0.059448  
+\end{Verbatim}
+            
+    \subsection{Moving Beyond SDSU}\label{moving-beyond-sdsu}
+
+    Since the SDSU study only looked at one year, to complete a more
+wholistic overview, I looked through the many different years including
+2016 and 2018. Surprisingly, every year the data for post-stop outcomes
+was consistently similar.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{bivar2}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2014}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{bivar2}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2014}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped Per Second in 2014}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{bivar}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2014}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{bivar}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2014}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped In the Inter\PYZhy{}Twilight Period in 2014}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_86_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_86_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{bivar2}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2016}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{bivar2}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped Per Second in 2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{bivar}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2016}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{bivar}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped In the Inter\PYZhy{}Twilight Period in 2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_87_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_87_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{bivar2}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2018}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{bivar2}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2018}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped Per Second in 2018}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{bivar}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2018}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{bivar}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2018}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped In the Inter\PYZhy{}Twilight Period in 2018}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_88_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_88_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{bivar2}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2019}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{bivar2}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2019}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped Per Second in 2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{n}{bivar}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2019}\PY{p}{)}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{n}{bivar}\PY{p}{(}\PY{n}{allyears}\PY{p}{,}\PY{l+m+mi}{2019}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day in Seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amount of Drivers Stopped In the Inter\PYZhy{}Twilight Period in 2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plt.xticks(rotation = \PYZsq{}vertical\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_89_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_89_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{ax1} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of Inter\PYZhy{}Twilight Drivers Who Drove when Dark vs Light Outside in 2016}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Rates}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} Text(0,0.5,'Mean Rates')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_90_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{first} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{second} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2016}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{ks\PYZus{}2samp}\PY{p}{(}\PY{n}{second}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{first}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} Ks\_2sampResult(statistic=0.1428571428571429, pvalue=0.9999951796657175)
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{less40} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{ageless40}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{ax1} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2018}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of Inter\PYZhy{}Twilight Drivers Who Drove when Dark vs Light Outside in 2018}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Rates}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} Text(0,0.5,'Mean Rates')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_92_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{first} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2018}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{second} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2018}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{ks\PYZus{}2samp}\PY{p}{(}\PY{n}{second}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{first}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} Ks\_2sampResult(statistic=0.1428571428571429, pvalue=0.9999951796657175)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{ax1} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2019}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean of Inter\PYZhy{}Twilight Drivers Who Drove when Dark vs Light Outside in 2019}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Rates}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:} Text(0,0.5,'Mean Rates')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_94_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{first} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2019}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{second} \PY{o}{=} \PY{n}{darkvlight}\PY{p}{(}\PY{n}{vod\PYZus{}df1}\PY{p}{,}\PY{l+m+mi}{2019}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stop\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{ks\PYZus{}2samp}\PY{p}{(}\PY{n}{second}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{first}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}69}]:} Ks\_2sampResult(statistic=0.1428571428571429, pvalue=0.9999951796657175)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{rtt} \PY{o}{=} \PY{n}{allyears}\PY{p}{[}\PY{n}{allyears}\PY{o}{.}\PY{n}{subject\PYZus{}race} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Native American}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{rtt} \PY{o}{=} \PY{n}{rtt}\PY{p}{[}\PY{n}{rtt}\PY{o}{.}\PY{n}{subject\PYZus{}race} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Middle Eastern or South Asian}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{rtt} \PY{o}{=} \PY{n}{rtt}\PY{p}{[}\PY{n}{rtt}\PY{o}{.}\PY{n}{subject\PYZus{}race} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{poststop} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{rtt}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrested}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{property\PYZus{}seized}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{searched}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{contraband\PYZus{}found}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{poststop}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}70}]:} subject\_race             Asian  Black/African American  Hispanic/Latino/a  \textbackslash{}
+         arrested              0.066037                0.111523           0.067120   
+         contraband\_found      0.021499                0.049910           0.025194   
+         property\_seized       0.008284                0.016311           0.012128   
+         searched              0.079484                0.168851           0.107345   
+         subject\_race      25955.000000            98276.000000      211160.000000   
+         
+         subject\_race      Pacific Islander          White  
+         arrested                  0.145593       0.073137  
+         contraband\_found          0.047871       0.025949  
+         property\_seized           0.022450       0.009764  
+         searched                  0.172664       0.088670  
+         subject\_race           3029.000000  300396.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{k}{if} \PY{o+ow}{not} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{exists}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/out}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{os}\PY{o}{.}\PY{n}{mkdir}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/out}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{poststop}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../data/out/poststop.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{ageless40} \PY{o}{=} \PY{n}{vod\PYZus{}df}\PY{p}{[}\PY{n}{vod\PYZus{}df}\PY{o}{.}\PY{n}{subject\PYZus{}age} \PY{o}{\PYZlt{}} \PY{l+m+mi}{40}\PY{p}{]}
+         \PY{n}{ageless40} \PY{o}{=} \PY{n}{ageless40}\PY{p}{[}\PY{n}{ageless40}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Native American}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{vodddd} \PY{o}{=} \PY{n}{vod\PYZus{}df}\PY{p}{[}\PY{n}{vod\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Native American}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{less40} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{ageless40}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
          \PY{o}{.}\PY{o}{.}\PY{o}{.}                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrested}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{property\PYZus{}seized}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{searched}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{contraband\PYZus{}found}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{allages} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{vod\PYZus{}df}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{allages} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{vod\PYZus{}df}\PY{p}{,} \PY{n}{index}\PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subject\PYZus{}race}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{p}{\PYZob{}}
          \PY{o}{.}\PY{o}{.}\PY{o}{.}                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{arrested}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{property\PYZus{}seized}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{searched}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{contraband\PYZus{}found}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{less40}\PY{o}{\PYZhy{}}\PY{n}{allages}
+{\color{incolor}In [{\color{incolor}75}]:} \PY{p}{(}\PY{n}{less40}\PY{o}{\PYZhy{}}\PY{n}{allages}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}39}]:}                                arrested  contraband\_found  property\_seized  \textbackslash{}
-         subject\_race                                                                 
-         Asian                          0.001662          0.002440         0.002270   
-         Black/African American         0.001941          0.001242         0.001325   
-         Hispanic/Latino/a              0.002170          0.000784         0.000583   
-         Middle Eastern or South Asian  0.000203         -0.000759        -0.000111   
-         Other                          0.001866          0.000622         0.000466   
-         
-                                        searched  
-         subject\_race                             
-         Asian                          0.012357  
-         Black/African American         0.014045  
-         Hispanic/Latino/a              0.011067  
-         Middle Eastern or South Asian  0.004257  
-         Other                          0.003886  
+{\color{outcolor}Out[{\color{outcolor}75}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1a25c8d550>
 \end{Verbatim}
             
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_101_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
     \subsection{Conclusion}\label{conclusion}
+
+    From the analysis done throughout this report, I found that there was no
+significant difference in racial stop rates between black and white
+drivers overall. However, when looking closely at certain beats and
+divisions, I found that looking at the demographic, location and overall
+service area found that certain areas were more populated with certain
+races. For example, looking at the analysis done with the Interstate-8,
+similar to the SDSU study, I found that while everything North of the I8
+was predominantly financially better, it also consisted of more white
+drivers living there. When looking closely at the data, I found that
+there were a higher rate of black drivers stopped in these divisions
+about the I8. Similarly, I found that there were lower rates of white
+drivers being stopped in the divisions and service areas below the I8.
 
 
     % Add a bibliography block to the postdoc

@@ -1,5 +1,5 @@
 {
-    "years": [2014, 2018],
-    "components": ["race", "stop_reason", "prop_seize_type", "search_basis", "actions_taken", "stop_result", "contraband_evid"],
-    "outpath": "../data/test"
+    "years": [2014],
+    "components": [],
+    "outpath": "data/test"
 }
