@@ -11726,8 +11726,6 @@ body {
 div#notebook {
   overflow: visible;
   border-top: none;
-}div#notebook-container{
-  padding: 6ex 12ex 8ex 12ex;
 }@media print {
   div.cell {
     display: block;
@@ -11773,7 +11771,9 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Fair-Policing-Assignment-#3">Fair-Policing Assignment #3<a class="anchor-link" href="#Fair-Policing-Assignment-#3">&#182;</a></h1>
 <pre><code>Name: Huda Ahmed
@@ -11783,75 +11783,20 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">doctest</span>
-<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">geopandas</span> <span class="k">import</span> <span class="n">GeoSeries</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="k">import</span> <span class="n">Polygon</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">scipy.stats</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../src&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">etl</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">process</span> <span class="k">import</span> <span class="o">*</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><h1>Table of Contents<span class="tocSkip"></span></h1></p>
 <div class="toc"><ul class="toc-item"><li><span><a href="#Fair-Policing-Assignment-#3" data-toc-modified-id="Fair-Policing-Assignment-#3-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Fair-Policing Assignment #3</a></span><ul class="toc-item"><li><span><a href="#Introduction" data-toc-modified-id="Introduction-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#Historical-Context" data-toc-modified-id="Historical-Context-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Historical Context</a></span></li><li><span><a href="#Data" data-toc-modified-id="Data-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Data</a></span><ul class="toc-item"><li><ul class="toc-item"><li><span><a href="#Introduction-to-Data" data-toc-modified-id="Introduction-to-Data-1.3.0.1"><span class="toc-item-num">1.3.0.1&nbsp;&nbsp;</span>Introduction to Data</a></span></li><li><span><a href="#Data-Generation-Process" data-toc-modified-id="Data-Generation-Process-1.3.0.2"><span class="toc-item-num">1.3.0.2&nbsp;&nbsp;</span>Data Generation Process</a></span></li></ul></li><li><span><a href="#EDA" data-toc-modified-id="EDA-1.3.1"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span>EDA</a></span></li><li><span><a href="#Reliability-of-Data" data-toc-modified-id="Reliability-of-Data-1.3.2"><span class="toc-item-num">1.3.2&nbsp;&nbsp;</span>Reliability of Data</a></span><ul class="toc-item"><li><span><a href="#Precision" data-toc-modified-id="Precision-1.3.2.1"><span class="toc-item-num">1.3.2.1&nbsp;&nbsp;</span>Precision</a></span></li><li><span><a href="#Missingness" data-toc-modified-id="Missingness-1.3.2.2"><span class="toc-item-num">1.3.2.2&nbsp;&nbsp;</span>Missingness</a></span></li><li><span><a href="#Accuracy" data-toc-modified-id="Accuracy-1.3.2.3"><span class="toc-item-num">1.3.2.3&nbsp;&nbsp;</span>Accuracy</a></span></li></ul></li><li><span><a href="#Approach-to-Cleaning" data-toc-modified-id="Approach-to-Cleaning-1.3.3"><span class="toc-item-num">1.3.3&nbsp;&nbsp;</span>Approach to Cleaning</a></span></li></ul></li><li><span><a href="#Stop-Rates" data-toc-modified-id="Stop-Rates-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Stop Rates</a></span></li><li><span><a href="#Post-Stop-Outcomes" data-toc-modified-id="Post-Stop-Outcomes-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Post-Stop Outcomes</a></span></li><li><span><a href="#Veil-of-Darkness" data-toc-modified-id="Veil-of-Darkness-1.6"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Veil of Darkness</a></span><ul class="toc-item"><li><span><a href="#Explanation" data-toc-modified-id="Explanation-1.6.1"><span class="toc-item-num">1.6.1&nbsp;&nbsp;</span>Explanation</a></span><ul class="toc-item"><li><span><a href="#Shortcomings" data-toc-modified-id="Shortcomings-1.6.1.1"><span class="toc-item-num">1.6.1.1&nbsp;&nbsp;</span>Shortcomings</a></span></li></ul></li></ul></li><li><span><a href="#Moving-Beyond-SDSU" data-toc-modified-id="Moving-Beyond-SDSU-1.7"><span class="toc-item-num">1.7&nbsp;&nbsp;</span>Moving Beyond SDSU</a></span></li><li><span><a href="#Conclusion" data-toc-modified-id="Conclusion-1.8"><span class="toc-item-num">1.8&nbsp;&nbsp;</span>Conclusion</a></span></li></ul></li></ul></div>
@@ -11859,112 +11804,91 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cfg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../config/data-params.json&#39;</span><span class="p">))</span>
-<span class="n">get_data</span><span class="p">(</span><span class="o">**</span><span class="n">cfg</span><span class="p">)</span>
-<span class="n">df1</span> <span class="o">=</span> <span class="n">make_df</span><span class="p">(</span><span class="o">**</span><span class="n">cfg</span><span class="p">)</span>
-<span class="n">owd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;../data/raw&quot;</span><span class="p">)</span>
-
-<span class="n">extension</span> <span class="o">=</span> <span class="s1">&#39;csv&#39;</span>
-<span class="n">all_filenames</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extension</span><span class="p">))]</span>
-<span class="n">all_filenames</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">all_filenames</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pre2018</span> <span class="o">=</span> <span class="n">pre18</span><span class="p">(</span><span class="n">createtables</span><span class="p">(</span><span class="n">all_filenames</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">pre2018</span> <span class="o">=</span> <span class="n">clean_time_pre</span><span class="p">(</span><span class="n">pre2018</span><span class="p">)</span>
-<span class="n">post2018</span> <span class="o">=</span> <span class="n">post18</span><span class="p">(</span><span class="n">createtables</span><span class="p">(</span><span class="n">all_filenames</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">post2018</span> <span class="o">=</span> <span class="n">clean_time_post</span><span class="p">(</span><span class="n">post2018</span><span class="p">)</span>
-<span class="n">allyears</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pre2018</span><span class="p">,</span> <span class="n">post2018</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">getdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">owd</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;../data/out&quot;</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&quot;../data/out&quot;</span><span class="p">)</span>
-<span class="n">allyears</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../data/out/combined.csv&quot;</span><span class="p">)</span>
-<span class="n">pre2018</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../data/out/pre2018.csv&quot;</span><span class="p">)</span>
-<span class="n">post2018</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../data/out/post2018.csv&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In almost every aspect of life, the power of unconscious and subconscious biases exists to aid in shaping everyday decisions. Often times, people tend to remember the negative or unfavorable portrayal of different groups whether they be ethnic, gendered, or political. Studies have proved that minorities have received unfavorable and disadvantaged outcomes when it comes to criminal justice including racial profiling of drivers. Humans rely on the police to protect the public from harm while promoting fairness, equality and justice in communities. In recent years however, racial profiling has led the public to live in fear as it defamed many minority communities into becoming “suspects” based of off their physical appearances, their backgrounds, cultures and religions. Due to this, many cities including San Diego have seen an increase in tensions between the city’s police forces and its residents.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As one of the safest cities in California, San Diego is the eighth largest city in the United States and one of the most diverse places to live. Due to the diversity of this population and increase tension in the population, this project aims to calculate whether the racial disparity in police traffic stop data in the city of San Diego is significant or nonexistent.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Historical-Context">Historical Context<a class="anchor-link" href="#Historical-Context">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Previously, SDSU conducted a similar analysis that consisted of “259,569 traffic stops initiated by San Diego Police Department (SDPD) officers between January 1, 2014 and December 31, 2015” (Chanin, ii). They focused on the reasoning for initiating a traffic stop, whether a citation was issued, whether a field interview was conducted, whether a search was initiated, whether contraband was found and whether an arrest was made. Unsurprisingly, this study found disparities between White and Black drivers in 2014 and found that while Black and Hispanic drivers had higher rates of being searched after a traffic stop was initiated, they had lower rates than White drivers of being found with contraband (Chanin, ii). Some inherent shortcomings during the SDSU analysis were the shortage of officers in the San Diego area, the lack of diversity among the officers compared to the actual city population and the disproportionate quantity of officers patrolling certain areas with respect to the crime rates.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>While the data collection from 2018 onwards has years of experience of the officer, no data collection has the race or ethnicity of the officer themselves. The SDSU data also lacks information about the specific geo-location of the stops and searches, what was seized, the vehicle information or demeanors of the passengers/drivers of the cars. They also omitted traffic stops that “occurred as a result of a suspect description, code enforcement effort, or other type of call for service” (Chanin, iii). Thus, they limited their data sample to consist of stops that discretionary decisions like moving violations or things like a broken tail light. Another technique used for the SDSU analysis was an approach on the ‘Veil of Darkness’. This technique is based off of the assumption that bias over the race or ethnicity of a driver will be more visible in the daylight then stops conducted when it is dark outside as the night makes it harder to detect physical appearance. The SDSU study’s approach was to use the ‘inner-twilight period’ which took into consideration the seasonal time changes between summer and winter. Similar to the SDSU study, a previous study on SDPD traffic stop data was done in 2000 and 2001. This previous study caused the validity of the vehicle stop data to be questioned as the vehicle stop forms were not being filled out regularly. Another inconsistency is that 19% of the traffic stop records submitted possessed as least one missing data piece (Chanin, 15).</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Data">Data<a class="anchor-link" href="#Data">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Introduction-to-Data">Introduction to Data<a class="anchor-link" href="#Introduction-to-Data">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In order to get a better idea, data from between January 1, 2014 – December 31, 2019 will be used. This data consists of why the driver was stopped, whether there was a citation or warning issued, whether a field interview was conducted, whether a search was initiated, whether property was seized, whether contraband was discovered and whether an arrest occurred along with the area code and time/length of stop. Below is a table of the columns used for the following analysis.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <table>
 <thead><tr>
@@ -12040,49 +11964,40 @@ PID: A13521937</code></pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Data-Generation-Process">Data Generation Process<a class="anchor-link" href="#Data-Generation-Process">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Originally, the data was collected through the San Diego Police with the pre-2018 years consisting of one csv and the post-2018 consisting of many RIPA csv's that one had to merge to create a dataframe that consists of the above columns. From there, once the data was collected, aggregations to find the stop-rates and post-stop outcomes had to occur. In order to find the stop-rates, I first had to find the total population living in San Diego and more specifically the service areas in the city. To do this, one has to spatially join the census population dataset to the police stops dataset, which I did through ArcGIS because once one plots the census population dataset as centroids on top of the police beats split by service area, the software is able to join spatially based of the coordinates of the one service area to many centroids join. One thing to take note of was the when joining the two dataframes, I chose to count the centroids fully inside the service area boundaries as the centroids were small enough that only ~3% of the centroids intersected between multiple service areas.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="EDA">EDA<a class="anchor-link" href="#EDA">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">age</span> <span class="o">=</span> <span class="n">allyears</span><span class="p">[</span><span class="n">allyears</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2014</span><span class="p">]</span>
-<span class="n">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;subject_age&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="n">age</span> <span class="o">=</span> <span class="n">age</span><span class="p">[</span><span class="n">age</span><span class="o">.</span><span class="n">subject_age</span> <span class="o">&gt;</span> <span class="mi">14</span><span class="p">]</span>
-<span class="n">age</span> <span class="o">=</span> <span class="n">age</span><span class="p">[</span><span class="n">age</span><span class="o">.</span><span class="n">subject_age</span> <span class="o">&lt;=</span> <span class="mi">110</span><span class="p">]</span>
-<span class="n">gage</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">age</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;subject_age&#39;</span><span class="p">)[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">gage</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span> <span class="n">gage</span><span class="p">[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Age of Driver&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped Across the Driver Age&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -12093,6 +12008,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -12108,7 +12025,9 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>From the graph above, we can see that for the year 2014, an increase in the amount of drivers stopped occurs from age 15 onwards till the charts peak at around age 28. From the chart, we can infer that once drivers reached their late twenties/early thirties, they were stopped less quite possibly because of being more open to following the laws as drivers mature. Another pattern we can see is the spike in amount of drivers stopped every 5 or 10 years. This is because the post-2018 dataset contained assumed age values of drivers rather than their true ages.</p>
 
@@ -12116,34 +12035,14 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">bivar2</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2015</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span> <span class="n">bivar2</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2015</span><span class="p">)[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Time of Day in Seconds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped Per Second in 2015&#39;</span><span class="p">)</span>
-<span class="c1">#plt.xticks(rotation = &#39;vertical&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">bivar</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2015</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span> <span class="n">bivar</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2015</span><span class="p">)[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Time of Day in Seconds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped In the Inter-Twilight Period in 2015&#39;</span><span class="p">)</span>
-<span class="c1">#plt.xticks(rotation = &#39;vertical&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -12156,6 +12055,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -12171,26 +12072,34 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>For the chart above, I wanted to compare the stop rates throught the year 2015 in time of day seconds. From the chart on the top, we can see peaks during certain times of day, like &gt;750 drivers being stopped near 8 am (37,000 seconds), in comparison to the peaks at around 5 pm (58,000 second) and 10 pm (79,000 seconds). To look more closely at the trends, I decided to graph the stops in 2015 that occurred during the inter-twilight period. We can see a spike in the data every 1000 seconds (or ~30 minute) which shows that officers often most likely round the police stopping of a driver time to the nearest 30 minute or 1 hour.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Reliability-of-Data">Reliability of Data<a class="anchor-link" href="#Reliability-of-Data">&#182;</a></h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Precision">Precision<a class="anchor-link" href="#Precision">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The dataset consisted of many unprecise rows and columns of data. For example, the data from the years 2018 and onwards consisted of less granular subject races as compared to the data from 2014-2017. The pre2018 dataset splits the races into precise races like 'Laotian' and 'Vietnamese' where as the post2018 dataset combines those into the 'Asian' race. This means that a little more than 22,000 rows of data (1/3 of the dataset) had to be reassigned to more generic ones like 'Asian' and 'Middle Eastern'.</p>
 <p>Another example of where data is not precise is when the post2018 dataset was more exact in allocating gender to the stopped subjects whereas pre2018 only had 'M' for Males or 'F' for Females or 'X' for Unknown for those they had no idea about.</p>
@@ -12199,37 +12108,17 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">owd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;../data/raw&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pree</span> <span class="o">=</span> <span class="n">createtables</span><span class="p">(</span><span class="n">all_filenames</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">fifteen</span> <span class="o">=</span> <span class="n">pree</span><span class="o">.</span><span class="n">subject_race</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fifteen</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -12343,21 +12232,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">post2018</span><span class="o">.</span><span class="n">subject_race</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -12423,26 +12305,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">newtableee</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">subValCnts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">allyears</span><span class="o">.</span><span class="n">subject_race</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
-<span class="n">newtableee</span><span class="p">[</span><span class="s1">&#39;Driver Race&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subValCnts</span><span class="o">.</span><span class="n">index</span>
-<span class="n">newtableee</span><span class="p">[</span><span class="s1">&#39;Number Of Stops&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">allyears</span><span class="o">.</span><span class="n">subject_race</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">])</span>
-<span class="n">newtableee</span><span class="p">[</span><span class="s1">&#39;Percentage of Stops&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">allyears</span><span class="o">.</span><span class="n">subject_race</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">/</span><span class="n">allyears</span><span class="o">.</span><span class="n">subject_race</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">])</span>
-<span class="n">newtableee</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -12530,22 +12400,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fifteengend</span> <span class="o">=</span> <span class="n">pree</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">subject_sex</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fifteengend</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -12595,21 +12457,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">post2018</span><span class="o">.</span><span class="n">subject_sex</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -12666,13 +12521,17 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Missingness">Missingness<a class="anchor-link" href="#Missingness">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The dataset contained several rows of missing data, a problem that was significantly apparent among post-stop outcomes. Data charting the residence of the stop driver was absent from greater than 4 percent of the total stops recorded between 2014 and 2017. Data on officers searching drivers (around 18 percent), and making arrests (around 17 percent), were also missing in relatively high volume. The worst quality consisted of data associated with the discovery of contraband, the seizure of property and the officers obtainment of consent, where over 90 percent were either left blank or ambiguously labeled ‘null’.</p>
 <p>In order to use the columns missing the data, I set the values equal to NaN as when computing the mean and other statistics, these rows would not be counter, but at the same time, if they were automatically set as '0', these values would be counted in the demominator. For a lot of the columns like property seized, searched, whether they are a San Diego resident, I assumed that missing values meant that it did not pertaint to the subject stopped so in this case. For columns like age, where the missing data was crucial but also guessable, I initially left the rows at NaN but went back and imputed the means per race so that I could construct the best possible analysis of the data.</p>
@@ -12682,23 +12541,14 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">prn</span> <span class="o">=</span> <span class="n">pree</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Percentage of Nulls in Pre-2018 Columns&#39;</span><span class="p">)</span>
-<span class="n">prn</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Columns&quot;</span><span class="p">)</span>
-<span class="n">prn</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Percentage of Nulls&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -12709,6 +12559,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -12725,23 +12577,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">nulls</span> <span class="o">=</span> <span class="n">createtables</span><span class="p">(</span><span class="n">all_filenames</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Percentage of Nulls in Each Column&#39;</span><span class="p">)</span>
-<span class="n">nulls</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Columns&quot;</span><span class="p">)</span>
-<span class="n">nulls</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Percentage of Nulls&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -12752,6 +12595,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -12767,13 +12612,17 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Accuracy">Accuracy<a class="anchor-link" href="#Accuracy">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Another factor we had to look for in the reliability of the data was age. This is an example of data that is very hard to make accurate as although legal ages for drivers exist, this data consists of not only ages that are too young to be legal but ones that are too old to be alive. In order to create the anaylsis, I made the assumption that ages below 14 would not drive and neither would those ages greater than 120. From this assumption, I decided to coerce and grab the ages between 14 - 120 while dropping everything else. From the graph, we can see that the lines are thicker and longer near integers the end in 5's and 0's. This maybe because of officers perceiving age in the post2018 dataset (also has to do with precision when officers perceived age to be closer to 'bin ages').</p>
 <p>Another example of accuracy is the race codes in the datasets. These are accurate because the officers had to bubble in the race codes so they were not misspelled or written with capitals or lower case letters.</p>
@@ -12783,21 +12632,14 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pre2018</span><span class="o">.</span><span class="n">stop_cause</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -12895,28 +12737,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">forgraphs</span> <span class="o">=</span> <span class="n">allyears</span>
-<span class="n">forgraphs</span> <span class="o">=</span> <span class="n">forgraphs</span><span class="p">[</span><span class="n">forgraphs</span><span class="p">[</span><span class="s1">&#39;subject_age&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">14</span><span class="p">]</span>
-<span class="n">forgraphs</span> <span class="o">=</span> <span class="n">forgraphs</span><span class="p">[</span><span class="n">forgraphs</span><span class="p">[</span><span class="s1">&#39;subject_age&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">120</span><span class="p">]</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">forgraphs</span><span class="o">.</span><span class="n">subject_age</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">subject_age</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Age of Drivers&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -12927,6 +12755,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -12942,13 +12772,17 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Approach-to-Cleaning">Approach to Cleaning<a class="anchor-link" href="#Approach-to-Cleaning">&#182;</a></h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In order to star cleaning the data, I first looked at the count of each driver race and used that to see which races would make a larger and more significant effect on the dataset.</p>
 
@@ -12956,28 +12790,14 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">forgraphs</span> <span class="o">=</span> <span class="n">allyears</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">forgraphs</span><span class="o">.</span><span class="n">subject_race</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">subject_race</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Race&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Subjects Stopped by Race&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -12993,20 +12813,26 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>I also looked at the missingness of each column in the dataset and used the percent of missing data to aid me in taking either the imputation of the column or dropping the nulls. Analyzing patterns of missing data can aid in finding the explanation of how and why the missingness occurred and provide a little insight into what they mean for the dataset's reliability and its effect on the overall analysis. In this case, for many, the nulls actually meant that the driver was not stopped, searched, arrested and so on so I mapped the values to 0. I found that rather than having type 'object' columns, it was easier to map binary values like 0 and 1 so that the charting of the data would be easier.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Stop-Rates">Stop Rates<a class="anchor-link" href="#Stop-Rates">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In order to get the stop rates, census population data first had to get downloaded and joined to the police stops data because the true denominator is actually the amount of residents in San Diego in comparison to the amount of drivers stopped. To join these two datasets, I used ArcGIS to first plot the police census dataset by beat and then uploaded the census data, found the centorids of the population and used that to create boundaries. Once the centroids were done, I spatially joined mulitple centroids that were completely within service areas to one service area and found that those centroids who were intersecting srvice areas actually on consisted of &lt;3% of the centroids.</p>
 
@@ -13014,28 +12840,14 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">owd</span><span class="p">)</span>
-<span class="n">j</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../uploaded/joined.csv&#39;</span><span class="p">)</span>
-<span class="n">jdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;serv&#39;</span><span class="p">)[</span><span class="s1">&#39;H7X001&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-<span class="n">totdf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">allyears</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;service_area&#39;</span><span class="p">)[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
-<span class="n">combo</span> <span class="o">=</span> <span class="n">jdf</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">totdf</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">)</span>
-<span class="n">combo</span><span class="p">[</span><span class="s1">&#39;percentage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">combo</span><span class="p">[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">combo</span><span class="p">[</span><span class="s1">&#39;H7X001&#39;</span><span class="p">]</span>
-<span class="n">combo</span> <span class="o">=</span> <span class="n">combo</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;H7X001&quot;</span><span class="p">:</span> <span class="s2">&quot;Population&quot;</span><span class="p">,</span> <span class="s2">&quot;subject_race&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of Stops&quot;</span><span class="p">,</span> <span class="s2">&quot;percentage&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">% o</span><span class="s2">f Stops/Population&quot;</span><span class="p">})</span>
-<span class="n">combo</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -13212,7 +13024,9 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the map below, we can see that there is one significant servicxe area that had higher stop rates. Looking more closely to the San Diego Police Departmetn divisions map, I concluded that there existed little San Diego Residents in service area 530 due to Balboa Park taking up majority of that area. The map below that shows the mean amount of San Diego residents per service area (also known as our stop rates denominator).</p>
 
@@ -13220,27 +13034,14 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">beat_url</span> <span class="o">=</span> <span class="s1">&#39;http://seshat.datasd.org/sde/pd/pd_beats_datasd.geojson&#39;</span>
-<span class="n">pol</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">beat_url</span><span class="p">)</span>
-<span class="n">cp</span> <span class="o">=</span> <span class="n">pol</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">cp</span> <span class="o">=</span><span class="n">cp</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">combo</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;serv&#39;</span><span class="p">)</span>
-<span class="n">cp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f Stops/Population&#39;</span><span class="p">,</span> <span class="n">legend</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">cp2</span> <span class="o">=</span> <span class="n">cp</span><span class="p">[</span><span class="n">cp</span><span class="p">[</span><span class="s1">&#39;serv&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">530</span><span class="p">]</span>
-<span class="n">gp</span> <span class="o">=</span> <span class="n">cp2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f Stops/Population&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -13253,6 +13054,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -13269,45 +13072,17 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">totpopcens</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">censusyr</span><span class="p">(</span><span class="n">j</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;serv&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;beat&#39;</span><span class="p">,</span> <span class="s1">&#39;div&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data15</span> <span class="o">=</span> <span class="n">allyears</span><span class="p">[</span><span class="n">allyears</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="mi">2015</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iht</span> <span class="o">=</span> <span class="n">yearcnt</span><span class="p">(</span><span class="n">data15</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The table below shows that white drivers made up about 6% of stop rates in San Diego during 2015 in relation to the 20% of black drivers stopped. This is surprising becuase if you look at the overall population of San Diego there are around 769967 white driver residents as comapred to the significantly lower amount of black drivers (about 87949).</p>
 
@@ -13315,22 +13090,14 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stopratesbyarea</span> <span class="o">=</span> <span class="n">iht</span><span class="o">/</span><span class="n">totpopcens</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stopratesbyarea</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -13392,21 +13159,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">totpopcens</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -13471,30 +13231,20 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Post-Stop-Outcomes">Post-Stop Outcomes<a class="anchor-link" href="#Post-Stop-Outcomes">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rc</span> <span class="o">=</span> <span class="n">allyears</span><span class="p">[</span><span class="n">allyears</span><span class="o">.</span><span class="n">subject_race</span> <span class="o">!=</span> <span class="s1">&#39;Native American&#39;</span><span class="p">]</span>
-<span class="n">rc</span> <span class="o">=</span> <span class="n">allyears</span><span class="p">[</span><span class="n">allyears</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="mi">2015</span><span class="p">]</span>
-<span class="n">rc</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[</span><span class="n">rc</span><span class="o">.</span><span class="n">subject_race</span> <span class="o">!=</span> <span class="s1">&#39;Middle Eastern or South Asian&#39;</span><span class="p">]</span>
-<span class="n">rc</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[</span><span class="n">rc</span><span class="o">.</span><span class="n">subject_race</span> <span class="o">!=</span> <span class="s1">&#39;Other&#39;</span><span class="p">]</span>
-<span class="c1">#rc = rc[rc.subject_race != &#39;Pacific Islander&#39;]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Not surprisingly, when taking into account the post-stop outcomes by each race, we saw a siginificant increase in the amount of searches for black drivers in comparison to any other race where as the white drivers had the lowest serach rates.</p>
 
@@ -13502,23 +13252,14 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">poststop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">rc</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="p">{</span>
-<span class="o">...</span>                              <span class="s1">&#39;arrested&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;property_seized&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;searched&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;contraband_found&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;subject_race&#39;</span><span class="p">:</span> <span class="s1">&#39;count&#39;</span><span class="p">})</span>
-<span class="n">poststop</span><span class="o">.</span><span class="n">T</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -13600,25 +13341,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">raceonly</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">rc</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="p">{</span>
-<span class="o">...</span>                              <span class="s1">&#39;arrested&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;property_seized&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;searched&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;contraband_found&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">})</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">raceonly</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mean of Drivers Who Were Searched and Had Property Seized by Race&#39;</span><span class="p">)</span><span class="c1">#,color=[&#39;orange&#39;, &#39;red&#39;, &#39;green&#39;, &#39;blue&#39;])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Driver Race&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Mean Rates&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -13629,6 +13359,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -13644,7 +13376,9 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In order to look at post-stop outcomes more wholistically, I looked to see the rates of total searches, arrests, contraband found and property seized and found that there was in increas in all of these outcomes between 2017 and 2018. This is also when the new method of police reporting came into play with the RIPA datasets so it was not surprising as it was harder for police officers to not fill out these post 2017 reports.</p>
 
@@ -13652,23 +13386,14 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rip</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="p">{</span>
-<span class="o">...</span>                              <span class="s1">&#39;arrested&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;property_seized&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;searched&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;contraband_found&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">})</span>
-<span class="n">rip</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -13758,23 +13483,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tr</span> <span class="o">=</span> <span class="n">rip</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Percent of Post-Stop Outcomes from 2014-2019&#39;</span><span class="p">)</span>
-<span class="n">tr</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Year&quot;</span><span class="p">)</span>
-<span class="n">tr</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Percent of Post-Stop Outcomes&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -13785,6 +13501,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -13800,19 +13518,25 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Veil-of-Darkness">Veil of Darkness<a class="anchor-link" href="#Veil-of-Darkness">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Explanation">Explanation<a class="anchor-link" href="#Explanation">&#182;</a></h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>For this section, we will do a replication of the inter-twilight analysis that was done in the SDSU study. The Veil of Darkness method aims to use data that is unbiased in terms of stop decisions. This method relies on the idea that the officers who were stopping individuals based on their races and skin colors would not affect the effect of post stop outcomes as it takes into consideration the amount of daylight and darkness outside. According to the study, "The naive approach is just to compare whether daytime stops or nighttime stops have higher proportion of black drivers". To adjust for the differences in the time of the sun setting throughout the year, we use the inter-twilight period which aims to focus on stops that occur within 5:09 PM and 8:29 PM. Once this time period was aggregated, I webscraped sunset times for each day of each month that occured during this time period and mapped that service areas to the sunset times. From this, I was able to place drivers during the inter-twilight period as either being stopped in the light versus the dark (our train and test sets). From there a hypothesis of whether racial disparity truly exists was conducted and deduced that there was no significant difference in stop rates between Asian, Black and White drivers who were stopped in the light vs dark period of the inter-twilight period.</p>
 
@@ -13820,41 +13544,17 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vod_df</span> <span class="o">=</span> <span class="n">get_VOD_df</span><span class="p">(</span><span class="n">allyears</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vodgraph</span> <span class="o">=</span> <span class="n">vod_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="n">vcn</span> <span class="o">=</span> <span class="n">vodgraph</span><span class="o">.</span><span class="n">subject_race</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">vcn</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">vcn</span><span class="o">.</span><span class="n">subject_race</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Race&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Subjects Stopped by Race During the Inter-Twilight Period&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span> <span class="o">=</span> <span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -13871,25 +13571,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">aftervod</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">vod_df</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;service_area&#39;</span><span class="p">,</span> <span class="s1">&#39;subject_race&#39;</span><span class="p">,</span><span class="s1">&#39;subject_sex&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="p">{</span>
-<span class="o">...</span>                              <span class="s1">&#39;property_seized&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">],</span> <span class="s1">&#39;searched&#39;</span><span class="p">:[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">],</span> <span class="s1">&#39;subject_age&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;stop_id&#39;</span><span class="p">:</span> <span class="s1">&#39;count&#39;</span><span class="p">})</span>
-
-<span class="n">haha</span> <span class="o">=</span> <span class="n">aftervod</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">haha</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -14024,60 +13713,20 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">getinter</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../uploaded/forVoD.csv&#39;</span><span class="p">)</span>
-<span class="n">getinter</span> <span class="o">=</span> <span class="n">getinter</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Day&#39;</span><span class="p">,</span> <span class="s1">&#39;Age of Moon&#39;</span><span class="p">,</span> <span class="s1">&#39;Rise&#39;</span><span class="p">,</span> <span class="s1">&#39;Culm&#39;</span><span class="p">])</span>
-<span class="n">getinter</span> <span class="o">=</span> <span class="n">getinter</span><span class="p">[:</span><span class="mi">12</span><span class="p">]</span>
-<span class="n">getinter</span> <span class="o">=</span> <span class="n">getinter</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Month&#39;</span><span class="p">,</span> <span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">getinter</span><span class="p">[</span><span class="s1">&#39;Set&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">getinter</span><span class="p">[</span><span class="s1">&#39;Set&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span> <span class="s1">&#39;%H:%M&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
-<span class="n">dicvd</span> <span class="o">=</span> <span class="n">getinter</span><span class="p">[</span><span class="s1">&#39;Set&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vod_df1</span> <span class="o">=</span> <span class="n">vod_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">getdays</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vod_df1</span><span class="o">.</span><span class="n">date_stop</span><span class="p">)):</span>
-    <span class="n">getdays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">vod_df1</span><span class="o">.</span><span class="n">date_stop</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">]))</span> 
-<span class="n">vod_df1</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">getdays</span>
-<span class="n">vod_df1</span><span class="p">[</span><span class="s1">&#39;times&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vod_df1</span><span class="o">.</span><span class="n">Month</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">dicvd</span><span class="p">)</span>
-<span class="n">vod_df1</span><span class="p">[</span><span class="s1">&#39;whatisit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">light_or_dark</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ax1</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2015</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mean of Inter-Twilight Drivers Who Drove when Dark vs Light Outside in 2015&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Mean Rates&quot;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Race&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14088,6 +13737,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14104,23 +13755,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">first</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2015</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;stop_id&#39;</span><span class="p">]</span>
-<span class="n">second</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2015</span><span class="p">)[</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;stop_id&#39;</span><span class="p">]</span>
-<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ks_2samp</span><span class="p">(</span><span class="n">second</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">first</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14134,13 +13776,17 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Shortcomings">Shortcomings<a class="anchor-link" href="#Shortcomings">&#182;</a></h4>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The Veil of Darkness had many shortcomings with artificial light being the most significant. From the pvalue of 0.9, we can see that the KS sample hypothesis had no significance on the 'Light' and 'Dark' dubbed times of day. From the bar chart, we can also see that there were similar averages of stop rates done during the inter-twilight period in times before and times after the sunset. This data and these charts showed that no statistically significant difference existed in the 2015 stop patterns of black and white drivers.</p>
 
@@ -14148,107 +13794,26 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">listserv</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">serv</span><span class="o">.</span><span class="n">unique</span><span class="p">())[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">lst1</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">listserv</span><span class="p">:</span>
-    <span class="n">lst1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">servdict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">listserv</span><span class="p">,</span> <span class="n">lst1</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vod_df_reg</span> <span class="o">=</span> <span class="n">vod_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">vod_df_reg</span> <span class="o">=</span> <span class="n">vod_df_reg</span><span class="p">[</span><span class="n">vod_df_reg</span><span class="o">.</span><span class="n">subject_race</span> <span class="o">!=</span> <span class="s1">&#39;Native American&#39;</span><span class="p">]</span>
-<span class="n">vod_df_reg</span> <span class="o">=</span> <span class="n">vod_df_reg</span><span class="p">[</span><span class="n">vod_df_reg</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="mi">2015</span><span class="p">]</span>
-<span class="n">vod_df_reg</span> <span class="o">=</span> <span class="n">vod_df_reg</span><span class="p">[</span><span class="n">vod_df_reg</span><span class="o">.</span><span class="n">subject_race</span> <span class="o">!=</span> <span class="s1">&#39;Middle Eastern or South Asian&#39;</span><span class="p">]</span>
-<span class="n">vod_df_reg</span> <span class="o">=</span> <span class="n">vod_df_reg</span><span class="p">[</span><span class="n">vod_df_reg</span><span class="o">.</span><span class="n">subject_race</span> <span class="o">!=</span> <span class="s1">&#39;Pacific Islander&#39;</span><span class="p">]</span>
-<span class="n">vod_df_reg</span><span class="p">[</span><span class="s1">&#39;div&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vod_df_reg</span><span class="o">.</span><span class="n">service_area</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">servdict</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reg</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="mi">1</span><span class="p">:</span><span class="s1">&#39;Northern&#39;</span><span class="p">,</span>
-    <span class="mi">2</span><span class="p">:</span><span class="s1">&#39;Northeastern&#39;</span><span class="p">,</span>
-    <span class="mi">3</span><span class="p">:</span><span class="s1">&#39;Eastern&#39;</span><span class="p">,</span>
-    <span class="mi">4</span><span class="p">:</span><span class="s1">&#39;Southeastern&#39;</span><span class="p">,</span>
-    <span class="mi">5</span><span class="p">:</span><span class="s1">&#39;Central&#39;</span><span class="p">,</span>
-    <span class="mi">6</span><span class="p">:</span><span class="s1">&#39;Western&#39;</span><span class="p">,</span>
-    <span class="mi">7</span><span class="p">:</span><span class="s1">&#39;Southern&#39;</span><span class="p">,</span>
-    <span class="mi">8</span><span class="p">:</span><span class="s1">&#39;Mid City&#39;</span><span class="p">,</span>
-    <span class="mi">9</span><span class="p">:</span><span class="s1">&#39;Northwestern&#39;</span>
-<span class="p">}</span>
-<span class="n">vod_df_reg</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vod_df_reg</span><span class="p">[</span><span class="s1">&#39;div&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">reg</span><span class="p">)</span>
-<span class="n">i8</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="mi">1</span><span class="p">:</span><span class="s1">&#39;Above&#39;</span><span class="p">,</span>
-    <span class="mi">2</span><span class="p">:</span><span class="s1">&#39;Above&#39;</span><span class="p">,</span>
-    <span class="mi">3</span><span class="p">:</span><span class="s1">&#39;Above&#39;</span><span class="p">,</span>
-    <span class="mi">4</span><span class="p">:</span><span class="s1">&#39;Below&#39;</span><span class="p">,</span>
-    <span class="mi">5</span><span class="p">:</span><span class="s1">&#39;Below&#39;</span><span class="p">,</span>
-    <span class="mi">6</span><span class="p">:</span><span class="s1">&#39;Above&#39;</span><span class="p">,</span>
-    <span class="mi">7</span><span class="p">:</span><span class="s1">&#39;Below&#39;</span><span class="p">,</span>
-    <span class="mi">8</span><span class="p">:</span><span class="s1">&#39;Below&#39;</span><span class="p">,</span>
-    <span class="mi">9</span><span class="p">:</span><span class="s1">&#39;Above&#39;</span>
-<span class="p">}</span>
-<span class="n">vod_df_reg</span><span class="p">[</span><span class="s1">&#39;i8&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vod_df_reg</span><span class="p">[</span><span class="s1">&#39;div&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">i8</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rip</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">vod_df_reg</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">],</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;i8&#39;</span><span class="p">],</span> <span class="n">values</span> <span class="o">=</span> <span class="s1">&#39;stop_id&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;count&#39;</span><span class="p">})</span>
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">rip</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Racial Composition of SDPD Patrol Division Residents In Relation to Interstate 8&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Count&quot;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Race&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14259,6 +13824,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14274,7 +13841,9 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The table below displays the racial and ethnic breakdown of the San Diego Police Department’s nine police divisions. We can see that the highest concentrations of Black residents are found in the Southeastern and Mid-City divisions, whereas the White and Asian/PI populations are consistently at their lowest. Similarly, Hispanic residents tend to live in the Southern, Southeastern, and Mid-City divisions. Socioeconomically, poverty is also concentrated in these neighborhoods. From the data, we can actually see thta census tracts in these divisions are home to many of the San Diego’s poorest residents. Similarly, neighborhoods located above Interstate 8, including those in the Northern, Northeastern, Northwestern, Eastern, and Western divisions, where income levels tend to be higher, are also home to greater percentages of White and API residents.</p>
 
@@ -14282,21 +13851,14 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">vod_df_reg</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">],</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">],</span> <span class="n">values</span> <span class="o">=</span> <span class="s1">&#39;stop_id&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;count&#39;</span><span class="p">})</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">vod_df_reg</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -14421,13 +13983,17 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Moving-Beyond-SDSU">Moving Beyond SDSU<a class="anchor-link" href="#Moving-Beyond-SDSU">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Since the SDSU study only looked at one year, to complete a more wholistic overview, I looked through the many different years including 2016 and 2018. Surprisingly, every year the data for post-stop outcomes was consistently similar.</p>
 
@@ -14435,34 +14001,14 @@ PID: A13521937</code></pre>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">bivar2</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2014</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span> <span class="n">bivar2</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2014</span><span class="p">)[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Time of Day in Seconds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped Per Second in 2014&#39;</span><span class="p">)</span>
-<span class="c1">#plt.xticks(rotation = &#39;vertical&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">bivar</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2014</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span> <span class="n">bivar</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2014</span><span class="p">)[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Time of Day in Seconds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped In the Inter-Twilight Period in 2014&#39;</span><span class="p">)</span>
-<span class="c1">#plt.xticks(rotation = &#39;vertical&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14475,6 +14021,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14491,34 +14039,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">bivar2</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2016</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span> <span class="n">bivar2</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2016</span><span class="p">)[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Time of Day in Seconds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped Per Second in 2016&#39;</span><span class="p">)</span>
-<span class="c1">#plt.xticks(rotation = &#39;vertical&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">bivar</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2016</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span> <span class="n">bivar</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2016</span><span class="p">)[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Time of Day in Seconds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped In the Inter-Twilight Period in 2016&#39;</span><span class="p">)</span>
-<span class="c1">#plt.xticks(rotation = &#39;vertical&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14531,6 +14059,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14547,34 +14077,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">bivar2</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2018</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span> <span class="n">bivar2</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2018</span><span class="p">)[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Time of Day in Seconds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped Per Second in 2018&#39;</span><span class="p">)</span>
-<span class="c1">#plt.xticks(rotation = &#39;vertical&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">bivar</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2018</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span> <span class="n">bivar</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2018</span><span class="p">)[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Time of Day in Seconds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped In the Inter-Twilight Period in 2018&#39;</span><span class="p">)</span>
-<span class="c1">#plt.xticks(rotation = &#39;vertical&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14587,6 +14097,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14603,34 +14115,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">bivar2</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2019</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span> <span class="n">bivar2</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2019</span><span class="p">)[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Time of Day in Seconds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped Per Second in 2016&#39;</span><span class="p">)</span>
-<span class="c1">#plt.xticks(rotation = &#39;vertical&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">bivar</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2019</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span> <span class="n">bivar</span><span class="p">(</span><span class="n">allyears</span><span class="p">,</span><span class="mi">2019</span><span class="p">)[</span><span class="s1">&#39;stop_id&#39;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span> <span class="p">(</span><span class="s1">&#39;Time of Day in Seconds&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span> <span class="p">(</span><span class="s1">&#39;Amount of Drivers Stopped In the Inter-Twilight Period in 2016&#39;</span><span class="p">)</span>
-<span class="c1">#plt.xticks(rotation = &#39;vertical&#39;)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14643,6 +14135,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14659,22 +14153,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ax1</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2016</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mean of Inter-Twilight Drivers Who Drove when Dark vs Light Outside in 2016&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Mean Rates&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14685,6 +14171,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14701,23 +14189,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">first</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2016</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;stop_id&#39;</span><span class="p">]</span>
-<span class="n">second</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2016</span><span class="p">)[</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;stop_id&#39;</span><span class="p">]</span>
-<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ks_2samp</span><span class="p">(</span><span class="n">second</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">first</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14732,22 +14211,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ax1</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2018</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mean of Inter-Twilight Drivers Who Drove when Dark vs Light Outside in 2018&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Mean Rates&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14758,6 +14229,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14774,23 +14247,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">first</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2018</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;stop_id&#39;</span><span class="p">]</span>
-<span class="n">second</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2018</span><span class="p">)[</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;stop_id&#39;</span><span class="p">]</span>
-<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ks_2samp</span><span class="p">(</span><span class="n">second</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">first</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14805,22 +14269,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ax1</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2019</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mean of Inter-Twilight Drivers Who Drove when Dark vs Light Outside in 2019&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Mean Rates&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14831,6 +14287,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14847,23 +14305,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">first</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2019</span><span class="p">)[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;stop_id&#39;</span><span class="p">]</span>
-<span class="n">second</span> <span class="o">=</span> <span class="n">darkvlight</span><span class="p">(</span><span class="n">vod_df1</span><span class="p">,</span><span class="mi">2019</span><span class="p">)[</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;stop_id&#39;</span><span class="p">]</span>
-<span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">ks_2samp</span><span class="p">(</span><span class="n">second</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">first</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -14878,26 +14327,14 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rtt</span> <span class="o">=</span> <span class="n">allyears</span><span class="p">[</span><span class="n">allyears</span><span class="o">.</span><span class="n">subject_race</span> <span class="o">!=</span> <span class="s1">&#39;Native American&#39;</span><span class="p">]</span>
-<span class="n">rtt</span> <span class="o">=</span> <span class="n">rtt</span><span class="p">[</span><span class="n">rtt</span><span class="o">.</span><span class="n">subject_race</span> <span class="o">!=</span> <span class="s1">&#39;Middle Eastern or South Asian&#39;</span><span class="p">]</span>
-<span class="n">rtt</span> <span class="o">=</span> <span class="n">rtt</span><span class="p">[</span><span class="n">rtt</span><span class="o">.</span><span class="n">subject_race</span> <span class="o">!=</span> <span class="s1">&#39;Other&#39;</span><span class="p">]</span>
-<span class="n">poststop</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">rtt</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arrested&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span>
-<span class="s1">&#39;property_seized&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;searched&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;contraband_found&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;subject_race&#39;</span><span class="p">:</span> <span class="s1">&#39;count&#39;</span><span class="p">})</span>
-<span class="n">poststop</span><span class="o">.</span><span class="n">T</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -14979,79 +14416,26 @@ PID: A13521937</code></pre>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;../data/out&quot;</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&quot;../data/out&quot;</span><span class="p">)</span>
-<span class="n">poststop</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;../data/out/poststop.csv&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ageless40</span> <span class="o">=</span> <span class="n">vod_df</span><span class="p">[</span><span class="n">vod_df</span><span class="o">.</span><span class="n">subject_age</span> <span class="o">&lt;</span> <span class="mi">40</span><span class="p">]</span>
-<span class="n">ageless40</span> <span class="o">=</span> <span class="n">ageless40</span><span class="p">[</span><span class="n">ageless40</span><span class="p">[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;Native American&#39;</span><span class="p">]</span>
-<span class="n">vodddd</span> <span class="o">=</span> <span class="n">vod_df</span><span class="p">[</span><span class="n">vod_df</span><span class="p">[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">]</span><span class="o">!=</span> <span class="s1">&#39;Native American&#39;</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">less40</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">ageless40</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="p">{</span>
-<span class="o">...</span>                              <span class="s1">&#39;arrested&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;property_seized&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;searched&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;contraband_found&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">})</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">allages</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">vod_df</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;subject_race&#39;</span><span class="p">],</span> <span class="n">aggfunc</span><span class="o">=</span><span class="p">{</span>
-<span class="o">...</span>                              <span class="s1">&#39;arrested&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;property_seized&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;searched&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="s1">&#39;contraband_found&#39;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">})</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">less40</span><span class="o">-</span><span class="n">allages</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
 
+
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -15062,6 +14446,8 @@ PID: A13521937</code></pre>
 </div>
 
 <div class="output_area">
+
+<div class="prompt"> </div>
 
 
 
@@ -15077,13 +14463,17 @@ PID: A13521937</code></pre>
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>From the analysis done throughout this report, I found that there was no significant difference in racial stop rates between black and white drivers overall. However, when looking closely at certain beats and divisions, I found that looking at the demographic, location and overall service area found that certain areas were more populated with certain races. For example, looking at the analysis done with the Interstate-8, similar to the SDSU study, I found that while everything North of the I8 was predominantly financially better, it also consisted of more white drivers living there. When looking closely at the data, I found that there were a higher rate of black drivers stopped in these divisions about the I8. Similarly, I found that there were lower rates of white drivers being stopped in the divisions and service areas below the I8.</p>
 
